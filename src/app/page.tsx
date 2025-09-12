@@ -1,11 +1,10 @@
-
 "use client";
 
 import { useState, useEffect, useMemo } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { useToast } from "@/components/ui/use-toast";
 
 interface TimeLeft {
   jours: number;
@@ -22,6 +21,7 @@ export default function HomePage() {
     secondes: 0
   });
   const [email, setEmail] = useState('');
+  const { toast } = useToast();
 
   // Set launch date to 10 days from now - fixed with useMemo
   const launchDate = useMemo(() => {
@@ -50,47 +50,22 @@ export default function HomePage() {
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add toast notification for email submission
-    console.log('Email submitted:', email);
-    // Show success message
-    alert('Merci! Vous serez informé lors du lancement.');
+    // Show toast notification for email submission
+    toast({
+      title: "Inscription réussie!",
+      description: "Merci! Vous serez informé lors du lancement.",
+    });
     setEmail('');
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-white/20 rounded-full"
-            initial={{ 
-              x: Math.random() * 1200,
-              y: Math.random() * 800,
-            }}
-            animate={{ 
-              y: [null, -20, 20],
-              opacity: [0.2, 0.8, 0.2]
-            }}
-            transition={{ 
-              duration: Math.random() * 3 + 2,
-              repeat: Infinity,
-              repeatType: "reverse",
-              delay: Math.random() * 2
-            }}
-          />
-        ))}
-      </div>
+      {/* Simple background without animations */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none"></div>
 
       <div className="container mx-auto px-4 py-8 relative z-10 flex flex-col items-center justify-center min-h-screen">
-        {/* IMPROVED WOLO Logo - Bigger and Better */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-          className="text-center mb-8"
-        >
+        {/* WOLO Logo */}
+        <div className="text-center mb-8">
           <div className="relative mb-8">
             <svg width="200" height="200" viewBox="0 0 200 200" className="mx-auto">
               <defs>
@@ -127,72 +102,34 @@ export default function HomePage() {
           <h1 className="text-6xl font-black text-white mb-3 tracking-tight">WOLO</h1>
           <p className="text-3xl text-white/90 tracking-widest font-light">SENEGAL</p>
           
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-6"
-          >
+          <div className="mt-6">
             <span className="inline-block px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white/90 text-lg font-medium">
               🚀 Bientôt Disponible
             </span>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Main title */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-white mb-4"
-            animate={{ 
-              textShadow: [
-                "0 0 0px rgba(255,255,255,0)",
-                "0 0 10px rgba(255,255,255,0.3)",
-                "0 0 0px rgba(255,255,255,0)"
-              ]
-            }}
-            transition={{ 
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          >
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Wolo Senegal is being engineered...
-          </motion.h2>
+          </h2>
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
             Notre plateforme révolutionnaire de cagnottes collaboratives arrive bientôt.
           </p>
-        </motion.div>
+        </div>
 
-        {/* FIXED Countdown - 10 days and counting */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="flex gap-6 mb-12"
-        >
+        {/* Countdown - 10 days and counting */}
+        <div className="flex gap-6 mb-12">
           {[
             { value: timeLeft.jours, label: 'Jours' },
             { value: timeLeft.heures, label: 'Heures' },
             { value: timeLeft.minutes, label: 'Minutes' },
             { value: timeLeft.secondes, label: 'Secondes' }
           ].map((unit) => (
-            <motion.div
+            <div
               key={unit.label}
               className="flex flex-col items-center"
-              whileHover={{ scale: 1.05 }}
-              animate={unit.label === 'Secondes' ? { 
-                scale: [1, 1.02, 1],
-              } : {}}
-              transition={unit.label === 'Secondes' ? {
-                duration: 1,
-                repeat: Infinity,
-                repeatType: "reverse"
-              } : {}}
             >
               <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 min-w-[100px] border border-white/30">
                 <div className="text-3xl md:text-4xl font-bold text-white text-center">
@@ -202,17 +139,12 @@ export default function HomePage() {
                   {unit.label}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Email subscription */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
-          className="w-full max-w-md"
-        >
+        <div className="w-full max-w-md">
           <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-white text-center mb-6">
@@ -236,50 +168,20 @@ export default function HomePage() {
               </form>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 0.8 }}
-          className="mt-16 text-center"
-        >
+        <div className="mt-16 text-center">
           <p className="text-white/60 text-sm">
             © 2025 WOLO SENEGAL® - From Connect Africa®
           </p>
-          {/* Subtle heartbeat animation for the copyright */}
-          <motion.p 
-            className="text-white/40 text-xs mt-2"
-            animate={{ 
-              opacity: [0.4, 0.6, 0.4],
-            }}
-            transition={{ 
-              duration: 2,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          >
+          <p className="text-white/40 text-xs mt-2">
             Made with ❤️ in Senegal
-          </motion.p>
-          {/* Version indicator */}
-          <motion.p 
-            className="text-white/30 text-xs mt-1"
-            animate={{ 
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{ 
-              duration: 4,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          >
+          </p>
+          <p className="text-white/30 text-xs mt-1">
             v1.0.0
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
       </div>
     </div>
   );
 }
-
-
-
