@@ -255,6 +255,20 @@ export default function HomePage() {
           >
             Made with ❤️ in Senegal
           </motion.p>
+          {/* Version indicator */}
+          <motion.p 
+            className="text-white/30 text-xs mt-1"
+            animate={{ 
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{ 
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          >
+            v1.0.0
+          </motion.p>
         </motion.div>
       </div>
     </div>
