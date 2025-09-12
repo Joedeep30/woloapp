@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -23,9 +23,12 @@ export default function HomePage() {
   });
   const [email, setEmail] = useState('');
 
-  // Set launch date to 10 days from now
-  const launchDate = new Date();
-  launchDate.setDate(launchDate.getDate() + 10);
+  // Set launch date to 10 days from now - fixed with useMemo
+  const launchDate = useMemo(() => {
+    const date = new Date();
+    date.setDate(date.getDate() + 10);
+    return date;
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -47,7 +50,10 @@ export default function HomePage() {
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Add toast notification for email submission
     console.log('Email submitted:', email);
+    // Show success message
+    alert('Merci! Vous serez informé lors du lancement.');
     setEmail('');
   };
 
