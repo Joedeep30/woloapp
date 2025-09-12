@@ -140,9 +140,23 @@ export default function HomePage() {
           transition={{ delay: 0.8, duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <motion.h2 
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
+            animate={{ 
+              textShadow: [
+                "0 0 0px rgba(255,255,255,0)",
+                "0 0 10px rgba(255,255,255,0.3)",
+                "0 0 0px rgba(255,255,255,0)"
+              ]
+            }}
+            transition={{ 
+              duration: 3,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          >
             Wolo Senegal is being engineered...
-          </h2>
+          </motion.h2>
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
             Notre plateforme révolutionnaire de cagnottes collaboratives arrive bientôt.
           </p>
