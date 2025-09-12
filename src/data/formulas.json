@@ -1,0 +1,73 @@
+
+[
+  {
+    "id": 1,
+    "name": "Pack Solo",
+    "description": "1 ticket cinéma + Panier Gourmand",
+    "min_tickets": 1,
+    "max_tickets": 1,
+    "includes_popcorn": true,
+    "includes_drinks": true,
+    "includes_snacks": true,
+    "price_per_ticket": 5000,
+    "total_price": 5000,
+    "is_active": true,
+    "display_order": 1
+  },
+  {
+    "id": 2,
+    "name": "Pack Duo",
+    "description": "2 tickets cinéma + Panier Gourmand",
+    "min_tickets": 2,
+    "max_tickets": 2,
+    "includes_popcorn": true,
+    "includes_drinks": true,
+    "includes_snacks": true,
+    "price_per_ticket": 4500,
+    "total_price": 9000,
+    "is_active": true,
+    "display_order": 2
+  },
+  {
+    "id": 3,
+    "name": "Pack Famille",
+    "description": "4 tickets cinéma + Panier Gourmand Premium",
+    "min_tickets": 4,
+    "max_tickets": 4,
+    "includes_popcorn": true,
+    "includes_drinks": true,
+    "includes_snacks": true,
+    "price_per_ticket": 4000,
+    "total_price": 16000,
+    "is_active": true,
+    "display_order": 3
+  },
+  {
+    "id": 4,
+    "name": "Pack Groupe",
+    "description": "6 tickets cinéma + Panier Gourmand XL",
+    "min_tickets": 6,
+    "max_tickets": 6,
+    "includes_popcorn": true,
+    "includes_drinks": true,
+    "includes_snacks": true,
+    "price_per_ticket": 3800,
+    "total_price": 22800,
+    "is_active": true,
+    "display_order": 4
+  },
+  {
+    "id": 5,
+    "name": "Pack Fête",
+    "description": "10 tickets cinéma + Panier Gourmand XXL",
+    "min_tickets": 10,
+    "max_tickets": 10,
+    "includes_popcorn": true,
+    "includes_drinks": true,
+    "includes_snacks": true,
+    "price_per_ticket": 3500,
+    "total_price": 35000,
+    "is_active": true,
+    "display_order": 5
+  }
+]
