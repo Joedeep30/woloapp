@@ -45,6 +45,7 @@
     "@radix-ui/react-tooltip": "1.1.6",
     "@supabase/postgrest-js": "^1.19.4",
     "@types/bcryptjs": "^3.0.0",
+    "@vercel/speed-insights": "^1.2.0",
     "autoprefixer": "^10.4.20",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",

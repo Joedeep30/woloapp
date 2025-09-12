@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -6,6 +5,7 @@ import { AuthProvider } from "@/components/auth/AuthProvider";
 import { Toaster } from "@/components/ui/toaster";
 import ZoerCopilot from "@/components/ZoerCopilot";
 import { ProcessCleanupProvider } from "@/components/ProcessCleanupProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "./globals.css";
 
@@ -45,6 +45,7 @@ export default function RootLayout({
               {children}
               <Toaster />
               <ZoerCopilot />
+              <SpeedInsights />
             </AuthProvider>
           </ThemeProvider>
         </ProcessCleanupProvider>
