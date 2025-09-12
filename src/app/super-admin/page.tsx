@@ -1,6 +1,8 @@
 
 "use client";
 
+// Super Admin Dashboard - Updated for deployment
+
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

@@ -59,6 +59,7 @@ export default function HomePage() {
   };
 
   // Trigger deployment with a small comment change
+  // Updated to ensure proper spacing and layout
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
