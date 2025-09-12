@@ -7,7 +7,9 @@
     "dev:debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start --port 22277",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync": "node scripts/sync-to-github.js",
+    "sync:win": "powershell -ExecutionPolicy Bypass -File scripts/sync-to-github.ps1"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
