@@ -53,7 +53,7 @@ export default function HomePage() {
     // Show toast notification for email submission
     toast({
       title: "Inscription réussie!",
-      description: "Merci! Vous serez informé lors du lancement.",
+      description: "Merci! Vous serez informé lors du lancement. - Deployment Test",
     });
     setEmail('');
   };
