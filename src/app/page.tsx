@@ -178,7 +178,7 @@ export default function HomePage() {
             © 2025 WOLO SENEGAL® - From Connect Africa®
           </p>
           <p className="text-white/40 text-xs mt-2">
-            Made with ❤️ in Senegal
+            Made with ❤️ in Senegal - Updated
           </p>
           <p className="text-white/30 text-xs mt-1">
             v1.0.0
