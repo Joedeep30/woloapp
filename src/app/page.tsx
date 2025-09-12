@@ -147,23 +147,9 @@ export default function HomePage() {
         <div className="w-full max-w-md">
           <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
             <CardContent className="p-8">
-              <motion.h3 
-                className="text-2xl font-bold text-white text-center mb-6"
-                animate={{ 
-                  textShadow: [
-                    "0 0 0px rgba(255,255,255,0)",
-                    "0 0 5px rgba(255,255,255,0.2)",
-                    "0 0 0px rgba(255,255,255,0)"
-                  ]
-                }}
-                transition={{ 
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-              >
+              <h3 className="text-2xl font-bold text-white text-center mb-6">
                 Soyez les premiers informés
-              </motion.h3>
+              </h3>
               <form onSubmit={handleEmailSubmit} className="space-y-4">
                 <Input
                   type="email"
@@ -176,8 +162,6 @@ export default function HomePage() {
                 <Button
                   type="submit"
                   className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold py-3 rounded-lg"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                 >
                   M&apos;inscrire
                 </Button>
