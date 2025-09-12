@@ -4,325 +4,207 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Shield, Lock, AlertCircle } from 'lucide-react';
-import { toast } from 'sonner';
+import { Shield, Crown } from 'lucide-react';
+import Link from 'next/link';
+
+interface TimeLeft {
+  jours: number;
+  heures: number;
+  minutes: number;
+  secondes: number;
+}
 
 export default function HomePage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showLogin, setShowLogin] = useState(false);
-  const [credentials, setCredentials] = useState({
-    username: '',
-    password: ''
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
+    jours: 0,
+    heures: 0,
+    minutes: 0,
+    secondes: 0
   });
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
 
-  const ADMIN_CREDENTIALS = {
-    username: 'admin.wolo',
-    password: 'WoloAdmin2025!'
-  };
+  const launchDate = new Date('2025-02-01T00:00:00Z');
 
   useEffect(() => {
-    const isAdminAuthenticated = sessionStorage.getItem('wolo_admin_authenticated');
-    if (isAdminAuthenticated === 'true') {
-      setIsAuthenticated(true);
-    }
-    setIsLoading(false);
-  }, []);
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = launchDate.getTime() - now;
 
-  const handleLogin = (e: React.FormEvent) => {
+      if (distance > 0) {
+        setTimeLeft({
+          jours: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          heures: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          secondes: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [launchDate]);
+
+  const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-
-    if (credentials.username === ADMIN_CREDENTIALS.username && 
-        credentials.password === ADMIN_CREDENTIALS.password) {
-      sessionStorage.setItem('wolo_admin_authenticated', 'true');
-      setIsAuthenticated(true);
-      toast.success('Connexion administrateur réussie !');
-    } else {
-      setError('Identifiants administrateur incorrects');
-      toast.error('Accès refusé');
-    }
+    console.log('Email submitted:', email);
+    setEmail('');
   };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('wolo_admin_authenticated');
-    setIsAuthenticated(false);
-    setCredentials({ username: '', password: '' });
-    toast.success('Déconnexion réussie');
-  };
-
-  const pages = [
-    {
-      title: "Page Invité/Visiteur",
-      description: "Page principale d'accueil pour les invités",
-      href: "/landing",
-      color: "bg-green-500 hover:bg-green-600"
-    },
-    {
-      title: "Dashboard Propriétaire", 
-      description: "Interface complète pour TOUS les propriétaires de cagnottes (filles ET garçons)",
-      href: "/owner",
-      color: "bg-blue-600 hover:bg-blue-700"
-    },
-    {
-      title: "Page Utilisateur",
-      description: "Interface publique avec données et invitations",
-      href: "/user/awa",
-      color: "bg-purple-600 hover:bg-purple-700"
-    },
-    {
-      title: "Créer une cagnotte",
-      description: "Formulaire de création avec Apple Sign-In et Instagram",
-      href: "/create-cagnotte",
-      color: "bg-orange-500 hover:bg-orange-600"
-    },
-    {
-      title: "Page de démonstration",
-      description: "Démo interactive des composants",
-      href: "/demo",
-      color: "bg-pink-500 hover:bg-pink-600"
-    },
-    {
-      title: "Dev Admin",
-      description: "Dashboard développeur avec gestion vidéo et partenaires avancée",
-      href: "/admin",
-      color: "bg-slate-600 hover:bg-slate-700"
-    },
-    {
-      title: "Super Admin Dashboard",
-      description: "Dashboard super-administrateur pour Jeff, Nat, Nico et développeurs",
-      href: "/super-admin",
-      color: "bg-red-600 hover:bg-red-700"
-    }
-  ];
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
-          <p className="text-white text-lg font-semibold">Vérification des autorisations...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-6">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="w-full max-w-md"
-        >
-          <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-2xl">
-            <CardHeader className="text-center">
-              <div className="flex justify-center mb-4">
-                <div className="p-3 bg-red-500/20 rounded-full">
-                  <Shield className="h-8 w-8 text-red-400" />
-                </div>
-              </div>
-              <CardTitle className="text-white text-2xl">
-                Accès Administrateur Requis
-              </CardTitle>
-              <p className="text-white/70">
-                Cette page est réservée aux administrateurs WOLO SENEGAL
-              </p>
-            </CardHeader>
-            <CardContent>
-              {!showLogin ? (
-                <div className="space-y-4">
-                  <Alert className="border-yellow-400/50 bg-yellow-500/10">
-                    <AlertCircle className="h-4 w-4 text-yellow-400" />
-                    <AlertDescription className="text-yellow-300">
-                      Seuls les administrateurs WOLO peuvent accéder à cette page de navigation.
-                    </AlertDescription>
-                  </Alert>
-                  
-                  <div className="flex flex-col gap-3">
-                    <Button
-                      onClick={() => setShowLogin(true)}
-                      className="w-full bg-blue-600 hover:bg-blue-700"
-                    >
-                      <Lock className="h-4 w-4 mr-2" />
-                      Connexion Administrateur
-                    </Button>
-                    
-                    <a href="/landing" target="_blank" rel="noopener noreferrer">
-                      <Button variant="outline" className="w-full border-white/30 text-white hover:bg-white/10">
-                        Retour à l'accueil public
-                      </Button>
-                    </a>
-                  </div>
-                </div>
-              ) : (
-                <form onSubmit={handleLogin} className="space-y-4">
-                  {error && (
-                    <Alert variant="destructive">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>{error}</AlertDescription>
-                    </Alert>
-                  )}
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="username" className="text-white">
-                      Nom d'utilisateur administrateur
-                    </Label>
-                    <Input
-                      id="username"
-                      type="text"
-                      value={credentials.username}
-                      onChange={(e) => setCredentials(prev => ({ ...prev, username: e.target.value }))}
-                      className="bg-white/10 border-white/30 text-white placeholder:text-white/50"
-                      placeholder="admin.wolo"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="password" className="text-white">
-                      Mot de passe administrateur
-                    </Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      value={credentials.password}
-                      onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
-                      className="bg-white/10 border-white/30 text-white placeholder:text-white/50"
-                      placeholder="••••••••••••"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="flex gap-2">
-                    <Button
-                      type="submit"
-                      className="flex-1 bg-green-600 hover:bg-green-700"
-                    >
-                      Se connecter
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => setShowLogin(false)}
-                      className="border-white/30 text-white hover:bg-white/10"
-                    >
-                      Annuler
-                    </Button>
-                  </div>
-                </form>
-              )}
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
-    );
-  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Header sécurisé */}
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+      {/* Admin access buttons */}
+      <div className="absolute top-6 right-6 flex gap-3 z-10">
+        <Link href="/admin">
+          <Button variant="outline" className="border-white/30 text-white hover:bg-white/10">
+            <Shield className="h-4 w-4 mr-2" />
+            Admin
+          </Button>
+        </Link>
+        <Link href="/super-admin">
+          <Button variant="outline" className="border-yellow-400/50 text-yellow-300 hover:bg-yellow-400/10">
+            <Crown className="h-4 w-4 mr-2" />
+            Super Admin
+          </Button>
+        </Link>
+      </div>
+
+      <div className="container mx-auto px-4 py-8 relative z-10 flex flex-col items-center justify-center min-h-screen">
+        {/* WOLO Logo */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-8"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="text-center mb-8"
         >
-          <div>
-            <h1 className="text-4xl font-bold text-white mb-2">
-              WOLO SENEGAL - Administration
-            </h1>
-            <p className="text-white/70 text-lg flex items-center gap-2">
-              <Shield className="h-5 w-5 text-green-400" />
-              Accès administrateur sécurisé - Processus de build corrigé
-            </p>
+          <div className="relative mb-6">
+            <svg width="120" height="120" viewBox="0 0 120 120" className="mx-auto">
+              <defs>
+                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#00D4FF" />
+                  <stop offset="50%" stopColor="#FF00D4" />
+                  <stop offset="100%" stopColor="#FFB800" />
+                </linearGradient>
+              </defs>
+              <text
+                x="60"
+                y="80"
+                fontSize="80"
+                fontWeight="bold"
+                textAnchor="middle"
+                fill="url(#gradient1)"
+                fontFamily="Arial, sans-serif"
+              >
+                W
+              </text>
+            </svg>
           </div>
           
-          <Button
-            onClick={handleLogout}
-            variant="outline"
-            className="border-red-400/50 text-red-300 hover:bg-red-500/20"
+          <h1 className="text-5xl font-bold text-white mb-2">WOLO</h1>
+          <p className="text-2xl text-white/80 tracking-wider">SENEGAL</p>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-4"
           >
-            <Lock className="h-4 w-4 mr-2" />
-            Déconnexion
-          </Button>
+            <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white/90 text-sm">
+              🚀 Bientôt Disponible
+            </span>
+          </motion.div>
         </motion.div>
 
-        {/* Navigation Grid sécurisée */}
+        {/* Main title */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="text-center mb-12"
         >
-          {pages.map((page, index) => (
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Wolo Senegal is being engineered...
+          </h2>
+          <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            Notre plateforme révolutionnaire de cagnottes collaboratives arrive bientôt.
+          </p>
+        </motion.div>
+
+        {/* Countdown */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="flex gap-6 mb-12"
+        >
+          {[
+            { value: timeLeft.jours, label: 'Jours' },
+            { value: timeLeft.heures, label: 'Heures' },
+            { value: timeLeft.minutes, label: 'Minutes' },
+            { value: timeLeft.secondes, label: 'Secondes' }
+          ].map((unit) => (
             <motion.div
-              key={page.href}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index }}
+              key={unit.label}
+              className="flex flex-col items-center"
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
-              <Card className="bg-white/10 backdrop-blur-sm border-white/20 h-full hover:bg-white/15 transition-all duration-300 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-white text-lg flex items-center gap-2">
-                    {page.title}
-                    {(page.href === '/admin' || page.href === '/super-admin') && (
-                      <Shield className="h-4 w-4 text-red-400" />
-                    )}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-white/70 text-sm mb-4">
-                    {page.description}
-                  </p>
-                  <a href={page.href} target="_blank" rel="noopener noreferrer">
-                    <Button className={`w-full ${page.color} text-white font-semibold shadow-lg`}>
-                      Accéder à la page
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
+              <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 min-w-[100px] border border-white/30">
+                <div className="text-3xl md:text-4xl font-bold text-white text-center">
+                  {String(unit.value).padStart(2, '0')}
+                </div>
+                <div className="text-white/70 text-sm text-center mt-2 font-medium">
+                  {unit.label}
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Footer sécurisé */}
+        {/* Email subscription */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6, duration: 0.8 }}
+          className="w-full max-w-md"
+        >
+          <Card className="bg-white/10 backdrop-blur-xl border-white/20 shadow-2xl">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-white text-center mb-6">
+                Soyez les premiers informés
+              </h3>
+              <form onSubmit={handleEmailSubmit} className="space-y-4">
+                <Input
+                  type="email"
+                  placeholder="Votre adresse email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-white/20 border-white/30 text-white placeholder:text-white/60 focus:border-white/50"
+                  required
+                />
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold py-3 rounded-lg"
+                >
+                  M&apos;inscrire
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="text-center mt-12"
+          transition={{ delay: 2, duration: 0.8 }}
+          className="mt-16 text-center"
         >
-          <Card className="bg-green-500/10 backdrop-blur-sm border-green-400/30">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <Shield className="h-5 w-5 text-green-400" />
-                <span className="text-green-300 font-semibold">Session Administrateur Active - Build Corrigé</span>
-              </div>
-              <p className="text-white/60 text-sm">
-                © 2025 WOLO SENEGAL® - From Connect Africa® —
-                <br />
-                ✅ <strong>PROBLÈME DE BUILD RÉSOLU :</strong> Processus se termine maintenant proprement
-                <br />
-                🔧 <strong>HANDLERS SIMPLIFIÉS :</strong> Un seul gestionnaire de sortie pour éviter les conflits
-                <br />
-                ⚡ <strong>TIMEOUT DE SÉCURITÉ :</strong> Sortie forcée après 2 minutes maximum
-                <br />
-                🧹 <strong>NETTOYAGE OPTIMISÉ :</strong> Suppression des handlers redondants
-                <br />
-                🚀 <strong>BUILD STABLE :</strong> Plus de boucles infinies ou de processus bloqués
-              </p>
-            </CardContent>
-          </Card>
+          <p className="text-white/60 text-sm">
+            © 2025 WOLO SENEGAL® - From Connect Africa®
+          </p>
         </motion.div>
       </div>
     </div>
   );
 }
+
+
