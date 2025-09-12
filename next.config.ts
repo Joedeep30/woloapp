@@ -34,15 +34,12 @@ const nextConfig: NextConfig = {
     ],
   },
   
-  // Configuration simplifiée pour éviter les processus bloqués
   poweredByHeader: false,
   compress: true,
   generateEtags: false,
   
-  // Packages externes pour les composants serveur
   serverExternalPackages: ['bcryptjs'],
   
-  // Configuration ESLint et TypeScript
   eslint: {
     ignoreDuringBuilds: false,
   },
@@ -50,25 +47,11 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
   
-  // Configuration pour nettoyer les ressources
   cleanDistDir: true,
-  
-  // Configuration pour optimiser les builds
   productionBrowserSourceMaps: false,
-  
-  // Configuration pour optimiser la compilation
-  swcMinify: true,
-  
-  // Configuration pour éviter les processus infinis
   trailingSlash: false,
   skipTrailingSlashRedirect: true,
   
-  // NOUVEAU : Configuration pour éviter les processus bloqués
-  experimental: {
-    serverComponentsExternalPackages: ['bcryptjs'],
-  },
-  
-  // Configuration webpack pour éviter les processus bloqués
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.externals = config.externals || [];
@@ -79,3 +62,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
