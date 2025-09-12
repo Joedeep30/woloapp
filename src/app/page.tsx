@@ -227,6 +227,20 @@ export default function HomePage() {
           <p className="text-white/60 text-sm">
             © 2025 WOLO SENEGAL® - From Connect Africa®
           </p>
+          {/* Subtle heartbeat animation for the copyright */}
+          <motion.p 
+            className="text-white/40 text-xs mt-2"
+            animate={{ 
+              opacity: [0.4, 0.6, 0.4],
+            }}
+            transition={{ 
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          >
+            Made with ❤️ in Senegal
+          </motion.p>
         </motion.div>
       </div>
     </div>
