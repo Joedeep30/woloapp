@@ -48,6 +48,15 @@ npm run sync:win
 npm run sync
 ```
 
+### Using Auto-Sync (Fully Automated):
+```bash
+# Double-click the start-auto-sync.bat file
+# Or run from command prompt:
+start-auto-sync.bat
+```
+
+The auto-sync feature will automatically detect changes in your project files and sync them to GitHub every 30 seconds without any manual intervention.
+
 ### Manual Git commands:
 ```bash
 git add .
