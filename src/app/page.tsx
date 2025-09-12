@@ -181,7 +181,7 @@ export default function HomePage() {
             Made with ❤️ in Senegal - Updated
           </p>
           <p className="text-white/30 text-xs mt-1">
-            v1.0.0
+            v1.0.1
           </p>
         </div>
       </div>
