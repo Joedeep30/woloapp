@@ -3407,7 +3407,7 @@ export default function SuperAdminDashboard() {
                 <br />
                 🖱️ <strong>Édition cliquable :</strong> Cliquez sur un service pour modifier tous ses champs
                 <br />
-                ✅ <strong>Layout propre :</strong> Interface organisée et ergonomique pour une gestion efficace
+                ✅ <strong>Layout propre :</strong> Interface organisée et ergonomique pour une gestion efficace - Updated
               </p>
             </CardContent>
           </Card>
