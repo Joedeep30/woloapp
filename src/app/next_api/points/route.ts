@@ -3,6 +3,7 @@ import { NextRequest } from 'next/server';
 import { requestMiddleware, validateRequestBody, parseQueryParams } from '@/lib/api-utils';
 import { createSuccessResponse, createErrorResponse } from '@/lib/create-response';
 import CrudOperations from '@/lib/crud-operations';
+import { PointsEngine } from '@/lib/points-engine';
 import { z } from 'zod';
 
 const awardPointsSchema = z.object({
