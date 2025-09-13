@@ -120,7 +120,7 @@ export const POST = requestMiddleware(async (request: NextRequest, params) => {
     const newUser = await usersCrud.create(userData);
 
     // Create user profile with identity info
-    const profileData = {
+    const profileData: any = {
       user_id: newUser.id,
       full_name: validatedData.full_name,
       dob: validatedData.dob,
