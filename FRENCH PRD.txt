@@ -1,0 +1,282 @@
+# WOLO SENEGAL — Cahier des charges produit (PRD)
+
+**Propriétaire du document :** Joe Deep (Founder)
+**Rédaction :** ChatGPT (Produit & Tech)
+**Version :** 1.1 (FR) — *intègre le flux -18 avec vérif. d’identité Parrain & Filleul + option Flutter (architecture hybride)*
+**Date :** 13 sept. 2025
+
+---
+
+## 1) Résumé exécutif
+
+WOLO est une plateforme locale de célébration d’anniversaire au Sénégal. Les utilisateurs (les **célébrés**) ouvrent une **cagnotte** que leurs proches alimentent pour débloquer des **Packs** (ex. *Pack Ciné*). Le principal levier de croissance passe désormais par le **parrainage** : tout utilisateur peut devenir **parrain**, inviter ses contacts (WhatsApp), et gagner des **points**. Lorsqu’un filleul accepte, confirme son identité et sa **date de naissance**, une page de cagnotte est **pré‑créée** et s’ouvrira **30 jours** avant son anniversaire. Pour les **<18 ans**, la même UI est utilisée, mais la mise en ligne publique est bloquée jusqu’au **consentement du représentant légal** et **vérification d’identité des deux parties (Parrain & Filleul)**.
+
+Côté tech, nous adoptons une **architecture hybride** : **Web (Next.js)** pour l’admin, le SEO et le don sur desktop, et **mobile Flutter** pour les parcours cœur (invites, dons Wave, QR redemption). Back‑end **API‑first** (PostgreSQL + PostgREST) avec **microservices + MCP** (Model Context Protocol) pour permettre l’automatisation/agents sans toucher aux chemins critiques.
+
+---
+
+## 2) Objectifs & KPIs
+
+**Objectifs business**
+
+* Livraison d’un MVP rapide, fluide (Wave), et fiable pour le Sénégal.
+* Le parrainage devient le 1er canal d’acquisition (≥ 60% de nouveaux utilisateurs via invitations à M+3).
+* Premier partenariat opérationnel (cinéma) avec validation QR et suivi de règlements.
+
+**KPIs trimestriels**
+
+* **Activation** : ≥ 55% des filleuls invités acceptent + confirment leur DOB.
+* **Viralité (K‑factor)** : ≥ 1,2 filleul accepté par parrain actif.
+* **Conversion** : ≥ 35% des cagnottes ouvertes reçoivent ≥ 1 don avant la date.
+* **Rédemption** : ≥ 85% des Packs financés consommés ≤ 45 jours après l’anniversaire.
+* **Perf** : API P95 < 300 ms | TTI P95 < 2,5 s en 3G.
+
+---
+
+## 3) Rôles & Personae
+
+* **Célébré / Propriétaire de cagnotte** : crée/possède la cagnotte, invite, suit, dépense.
+* **Donateur** : contribue via Wave ; peut rester anonyme ou non ; message optionnel.
+* **Parrain** : invite ses contacts ; gagne des points selon l’avancement du filleul.
+* **WOLO Admin** : opérations complètes (modération, remboursements, contenus, splits, flags).
+* **Admin Partenaire (Cinéma)** : **lecture seule** analytics + flux de validations QR.
+* **Admin Sponsor** : **lecture seule** des campagnes et performances.
+
+---
+
+## 4) Périmètre (MVP) / Hors périmètre
+
+**Inclus (MVP)**
+
+* Cycle de vie d’une cagnotte (création → invitation → dons → rédemption QR).
+* Paiement **Wave** (sandbox + prod) avec webhooks idempotents et grand livre de dons.
+* **Parrainage** : invitation WhatsApp, page d’acceptation, capture **nom + DOB**.
+* **Pré‑création** de cagnotte et **ouverture auto à J‑30** (T‑30) avant l’anniversaire.
+* **Flux <18 ans** : même UI, relation familiale obligatoire, **ID Parrain & Filleul**, private jusqu’au consentement + vérif. identité.
+* Consoles Admin **WOLO**, **Partenaire**, **Sponsor** (Rôle‑based, Partenaire/Sponsor = lecture seule).
+* Notifications (email + WhatsApp + SMS de secours) pour événements clés.
+
+**Exclus (MVP)**
+
+* Apps natives publiées en store (préparées au §16).
+* Marketplace multi‑packs complet ; onboarding self‑serve des partenaires.
+* Paiements in‑app Apple/Google.
+
+---
+
+## 5) Parcours clés & exigences UX
+
+### 5.1 Parcours parrainage (boucle de croissance principale)
+
+**Entrées** : CTA global « **Parrainer & gagner** » (header + dashboard).
+**Étapes** :
+
+1. **Parrain** → écran d’invitation → lien **WhatsApp deep‑link** (texte prérempli + code unique).
+2. **Filleul** → ouvre le lien → **Accepter** → **Nom complet + Date de naissance**.
+3. **Compte/Liaison** : création via téléphone/email/FB si nouveau ; sinon on lie au referral.
+4. **Pré‑création** : une cagnotte *privée* est planifiée pour **s’ouvrir à J‑30**.
+5. **Points parrain** : crédits lorsque (a) acceptation+DOB, (b) pot s’ouvre, (c) 1er don.
+6. **<18 ans** : même écran ; **relation familiale obligatoire** (fils/fille/frère/sœur/neveu/nièce), **collecte et vérification d’identité du Parrain & du Filleul** ; la cagnotte reste **non publique** jusqu’au consentement du représentant légal et la **vérif. d’identité des deux** lorsque la cagnotte s’ouvre.
+
+**UX/Friction** : 1 écran d’acceptation ; textes de réassurance privacy ; progression visible ; prévention d’abus (limites, détection doublons, scoring fraude).
+
+### 5.2 Cycle cagnotte
+
+* Création (montant cible, date, Pack préféré), invitations, dons Wave, progression live.
+* Cagnottes issues du parrainage : **ouverture auto J‑30**.
+* Post‑anniversaire : génération de **QR** ; **validation** chez le partenaire ; suivi de règlement.
+
+### 5.3 Consoles Admin
+
+* **WOLO Admin** : recherche globale, modération, remboursements, contenus Packs, splits, templates, feature flags, audit.
+* **Partenaire** (lecture seule) : analytics, export CSV, états de règlement.
+* **Sponsor** (lecture seule) : portée, attributions, CPM/CPC/CPA.
+
+---
+
+## 6) Points & Récompenses (Parrain)
+
+**Par défaut (paramétrable)**
+
+* +1 **point** : filleul **accepte + DOB confirmée + ID collectées**.
+* +4 **points** : **ouverture** de la cagnotte du filleul (J‑30).
+* +5 **points** : **premier don** du filleul (≥ seuil X CFA).
+* **Conversion** : **10 points = 1 000 CFA** crédités automatiquement sur la prochaine cagnotte du parrain à J‑30 (plafond 30% de l’objectif ; reliquat reporté).
+* **Anti‑abus** : maturation à J+7, révocation si suppression/remboursement ; cap invite/jour ; vérif. téléphone/email.
+
+**Boost sponsors** : multiplicateurs (+50%) contextuels (lieux/périodes/packs).
+
+---
+
+## 7) Exigences non fonctionnelles
+
+* **Perf** : API P95 < 300 ms, P99 < 800 ms ; SSR + cache edge ; images/QR via CDN.
+* **Scalabilité** : services **sans état** ; file d’événements pour webhooks/notifications.
+* **Fiabilité** : 99,9% ; webhooks idempotents ; enregistrement « exactly‑once » des dons.
+* **Sécurité** : JWT + cookies HTTP‑only, RBAC, journalisation/audit, chiffrage au repos/en transit.
+* **Privacy/Conformité** : consentements explicites, droit à l’effacement/export, rétention limitée des **ID** (voir §12).
+
+---
+
+## 8) Architecture système (Microservices + MCP, API‑first)
+
+**Services noyau**
+
+1. **Identity** : auth, sessions, rôles, liens tuteur/guardian.
+2. **Profiles** : profil, DOB, préférences, **identité** (numéro de pièce, type, pays, *hash*, preuve média chiffrée).
+3. **Referral** : codes, invitations, acceptations, **collecte ID parrain & filleul pour <18**), ledger de points.
+4. **Cagnottes** : CRUD, états, planification J‑30.
+5. **Donations** : intégration **Wave**, webhooks, ledger, remboursements.
+6. **Packs** : catalogue, prix, promos sponsor.
+7. **QR/Rédemption** : génération, validation, piste d’audit & règlements.
+8. **Notifications** : templates email/WhatsApp/SMS, logs, retries.
+9. **Analytics** : ingestion d’événements, tableaux de bord.
+10. **Admin** : feature flags, splits revenus, outils d’exploitation.
+
+**Événements (bus)** : `referral.accepted`, `referral.ids_collected`, `pot.precreated`, `pot.opened`, `donation.succeeded`, `qr.redeemed`, `points.minted`.
+
+**Données** : PostgreSQL unique au départ (schéma par service). PostgREST pour exposer REST rapidement. **MCP servers** en façade de chaque service pour usages agents/automatisation.
+
+---
+
+## 9) Modèle de données (essentiel)
+
+* **users**(id, phone/email, auth\_provider, roles\[], created\_at)
+* **profiles**(user\_id, full\_name, dob, locale,
+  guardian\_user\_id?,
+  **id\_number?**, **id\_type?**, **id\_country?**, **id\_hash?**, **id\_media\_id?**)
+* **referrals**(id, parrain\_id, code, status{sent,accepted,expired}, filleul\_user\_id, created\_at,
+  **both\_ids\_collected\:boolean**)
+* **points\_ledger**(id, parrain\_id, referral\_id, event, points, status{pending,matured,revoked})
+* **pots**(id, owner\_id, target\_cfa, preferred\_pack\_id, open\_at, state{scheduled,open,closed}, visibility{private,public})
+* **donations**(id, pot\_id, amount\_cfa, payer\_id?, wave\_txid, status{pending,succeeded,refunded}, consent\_flags)
+* **qrcodes**(id, pot\_id, code, pack\_id, state{issued,redeemed}, redeemed\_at, partner\_id)
+* **partners**(id, name, venues\[], revenue\_split, status)
+* **sponsors**(id, name, campaigns\[])
+* **notifications**(id, user\_id, channel, template\_id, payload, status, error)
+* **audit\_logs**(id, actor\_id, action, target, metadata, created\_at)
+
+---
+
+## 10) APIs (exemples)
+
+**Referral**
+
+* `POST /referrals/start` → { invite\_link }
+* `POST /referrals/accept` → { referral\_code, full\_name, dob, relationship? }
+* `POST /referrals/ids` → { referral\_id, parrain\_id\_doc, filleul\_id\_doc } *(<18 requis ; stockés chiffrés ; renvoie tokens de vérif.)*
+* `GET /referrals/me` → récap + points
+
+**Cagnottes**
+
+* `POST /pots` (création) ; `POST /pots/:id/close` ; `GET /pots/:id`
+* Scheduler ouvre à `open_at` (J‑30) ; passe **visibility=public** après consentements/IDs validés pour <18.
+
+**Donations**
+
+* `POST /donations` ; `POST /webhooks/wave` (idempotent)
+
+**QR/Rédemption**
+
+* `POST /qr/issue` (admin) ; `POST /qr/validate` (partenaire)
+
+**Admin**
+
+* `GET /admin/partners/:id/metrics` (lecture seule)
+* `GET /admin/sponsors/:id/metrics` (lecture seule)
+
+---
+
+## 11) Notifications
+
+**Déclencheurs** : referral accepté, **IDs reçues (<18)**, pot planifié, pot ouvert, don réussi, rappels pré‑anniv (J‑7, J‑1), post‑anniv (rédemption), QR validé.
+**Canaux** : email (SMTP), WhatsApp (Business API ou deep‑link), SMS (fallback).
+**Fiabilité** : backoff exponentiel, DLQ, rate‑limit par utilisateur.
+
+---
+
+## 12) Conformité & politiques (accent <18 & ID)
+
+* **<18** : relation familiale obligatoire (sélecteur), collecte **ID Parrain & Filleul** (numéro + photo doc si dispo) ; **hash** + stockage fichier **chiffré** ; **pot privé** tant que (a) consentement tuteur, (b) **IDs validées**.
+* **Minimisation** : ne stocker **que** le nécessaire (numéro, type, pays, hash ; image doc chiffrée si exigée).
+* **Rétention** : horizon par défaut **12 mois** après l’événement, purge/anon.
+* **Droits** : export/suppression à la demande ; registres d’accès (audit).
+* **Paiements** : rapprochement quotidien Wave ; grand‑livre audité ; politique de remboursement claire.
+
+---
+
+## 13) Analytics (tableaux de bord)
+
+* **WOLO Admin** : MAU, funnel parrainage, cagnottes ouvertes par date, taux de don, don moyen, mix Packs, taux de rédemption, flags fraude.
+* **Partenaire** : QR émis vs utilisés par lieu, part de revenus due/payée, top jours/heures.
+* **Sponsor** : portée, clics, dons attribués, CPM/CPC/CPA, ROI boost.
+
+---
+
+## 14) Performance & QA
+
+* **Budgets** : JS public < 250 Ko gz ; lazy‑load ; SSR.
+* **Tests** : unitaires (≥70%), contrats API, e2e ; webhooks idempotence ; charge P95/P99.
+* **UAT** : acceptation referral → **IDs <18 reçues** → pot auto J‑30 → 1er don Wave → QR émis/validé → dashboards MAJ.
+
+---
+
+## 15) Feuille de route & déploiement
+
+**Phase 0 (Durcissement)** : schémas, webhooks idempotents, audit, RBAC, perf baseline.
+**Phase 1 (MVP Web)** : parrainage, J‑30, Wave live, QR, consoles (lecture seule Partenaire/Sponsor).
+**Phase 1.1** : économie de points, boosts sponsor, anti‑abus v1.
+**Phase 1.2** : dashboards avancés.
+**Phase 2 (Mobile Flutter)** : voir §16 (POC → noyau → intégration).
+**Phase 3** : multi‑packs, onboarding partenaires, paliers de fidélité.
+
+---
+
+## 16) Apps natives vs Webapp — **Option 1 : Architecture Hybride (recommandée)**
+
+**Pourquoi**
+
+1. Garder le déploiement auto Next.js (admin/web, SEO, desktop dons).
+2. **Flutter** pour les parcours cœur sur mobile (marché **mobile‑first** au Sénégal).
+3. Réutiliser **PostgREST** sans changements majeurs.
+4. Intégration **Wave** plus fluide en mobile (deep‑links/SDK natifs).
+5. Caméra/contacts/notifications push (invites WhatsApp, scan QR, relances).
+
+**Implémentation Flutter — Plan**
+
+* **Étape 1 : POC (1–2 semaines)**
+
+  * Bootstrapping Flutter (iOS/Android), auth JWT, appels PostgREST, navigation.
+  * Pistes Wave : deep‑links, callbacks ; PWA vs natif → valider natif.
+* **Étape 2 : Noyau (4–6 semaines)**
+
+  * **Création de cagnotte**, **don Wave**, **génération/scan QR**, dashboard léger.
+  * Invites WhatsApp avec universal links, état hors‑ligne basique.
+* **Étape 3 : Intégration (2–3 semaines)**
+
+  * Auth **partagée** avec le web (mêmes claims JWT), synchro données, observabilité (Crashlytics), push (FCM/APNs), publication beta stores.
+
+**Conserver la Webapp ?** Oui : SEO, partage universel, desktop, admins/partenaires/sponsors.
+**Différences clés** : mobile = expériences rapides, camera/contacts/push ; web = gestion/SEO/desktop.
+
+---
+
+## 17) Décisions ouvertes
+
+* Barème final points & plafonds ; politique financée par sponsors.
+* Modalités exactes de vérif. d’identité (types de pièces, pays, preuves acceptées).
+* Événement déclencheur des points (acceptation vs 1er don vs J‑30) selon unit economics.
+* WhatsApp Business API vs deep‑links (coût/latence à l’échelle).
+* Cadence & process de règlement partenaires.
+
+---
+
+## 18) Handover développeurs (DoD)
+
+* Spéc OpenAPI publiée ; configs PostgREST versionnées.
+* **MCP servers** documentés (schémas d’outils + exemples).
+* CI/CD : migrations, *seed* de données démo.
+* Observabilité : logs/metrics/traces + alertes ; dashboards par service.
+* Playbooks : replay webhooks, remboursements, incidents QR, export/suppression PII.
+
+— **Fin PRD v1.1 (FR)** —
