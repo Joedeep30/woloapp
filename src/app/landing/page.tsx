@@ -33,17 +33,10 @@ export default function PageInviteVisiteur() {
   });
 
   const [showCreatePot, setShowCreatePot] = useState(false);
-  const [showCreateForMinor, setShowCreateForMinor] = useState(false);
   const [showSponsorDialog, setShowSponsorDialog] = useState(false);
   const [birthdayDate, setBirthdayDate] = useState('');
   const [birthdayError, setBirthdayError] = useState('');
 
-  // État pour créer une cagnotte pour un mineur de la famille
-  const [minorPotData, setMinorPotData] = useState({
-    minorName: '',
-    minorBirthday: ''
-  });
-  const [minorPotError, setMinorPotError] = useState('');
 
   // État pour le parrainage
   const [sponsorData, setSponsorData] = useState({
@@ -236,30 +229,6 @@ export default function PageInviteVisiteur() {
     return true;
   };
 
-  const validateMinorBirthdayDate = (date: string) => {
-    if (!date) {
-      setMinorPotError('Veuillez sélectionner la date d\'anniversaire du mineur');
-      return false;
-    }
-
-    const today = new Date();
-    const birthday = new Date(date);
-    const diffTime = birthday.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    if (diffDays < 10) {
-      setMinorPotError('L\'anniversaire doit être dans au moins 10 jours pour créer une cagnotte');
-      return false;
-    }
-
-    if (diffDays > 30) {
-      setMinorPotError('L\'anniversaire doit être dans moins de 30 jours pour créer une cagnotte');
-      return false;
-    }
-
-    setMinorPotError('');
-    return true;
-  };
 
   const validateSponsorBirthdayDate = (date: string) => {
     if (!date) {
