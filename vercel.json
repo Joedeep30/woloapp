@@ -7,11 +7,6 @@
       "maxDuration": 30
     }
   },
-  "env": {
-    "SUPABASE_URL": "@supabase-url",
-    "SUPABASE_SERVICE_ROLE_KEY": "@supabase-service-role-key",
-    "JWT_SECRET": "@jwt-secret"
-  },
   "build": {
     "env": {
       "NEXT_TELEMETRY_DISABLED": "1"
