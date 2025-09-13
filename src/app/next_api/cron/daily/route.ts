@@ -81,9 +81,8 @@ export const POST = async (request: NextRequest) => {
   } catch (error) {
     console.error('❌ Fatal error in daily cron:', error);
     return createErrorResponse({
-      errorMessage: 'Fatal error in daily cron tasks',
-      status: 500,
-      details: error instanceof Error ? error.message : 'Unknown error'
+      errorMessage: `Fatal error in daily cron tasks: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      status: 500
     });
   }
 };
