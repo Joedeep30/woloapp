@@ -38,6 +38,7 @@ import {
 import { toast } from 'sonner';
 import { User, Pot, Formula, Donation } from '@/types/wolo';
 import formulasData from '@/data/formulas.json';
+import { WaveLogo } from '@/components/ui/wave-logo';
 
 interface UserPageProps {
   params: Promise<{
