@@ -1,0 +1,93 @@
+version: '3.8'
+
+# Simplified Docker Compose for WOLO with Supabase
+# Only includes Redis cache and optional services
+# Database is handled by Supabase Cloud
+
+services:
+  # Redis Cache (Essential for sessions and caching)
+  redis:
+    image: redis:7-alpine
+    container_name: wolo-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-wolo-redis-2025}
+    command: >
+      redis-server
+      --appendonly yes
+      --requirepass ${REDIS_PASSWORD:-wolo-redis-2025}
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - wolo-network
+
+  # API Gateway (Optional - can run directly with npm)
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: wolo-api-gateway
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - PORT=3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-wolo-redis-2025}
+      - JWT_SECRET=${JWT_SECRET}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - wolo-network
+
+  # Health Monitor (Simple dashboard)
+  health-monitor:
+    image: nginx:alpine
+    container_name: wolo-health-monitor
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./monitoring/simple-dashboard.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - wolo-network
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  wolo-network:
+    driver: bridge
+
+# Usage Instructions:
+# 
+# DEVELOPMENT (Recommended):
+# - Run only Redis: docker-compose -f docker-compose.simplified.yml up redis -d
+# - Run microservices directly: npm run dev (in each service directory)
+#
+# PRODUCTION:
+# - Full stack: docker-compose -f docker-compose.simplified.yml up -d
+#
+# TESTING:
+# - No Docker: Use local Redis or Redis Cloud, run everything with npm
