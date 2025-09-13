@@ -1,7 +1,9 @@
 const dotenv = require('dotenv');
+const path = require('path');
 
-// Load environment variables
-dotenv.config();
+// Load environment variables from the microservices root directory
+const envPath = path.join(__dirname, '../../.env');
+dotenv.config({ path: envPath });
 
 const config = {
   // Environment
