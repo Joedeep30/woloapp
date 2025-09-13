@@ -124,7 +124,10 @@ export async function POST(request: NextRequest) {
 
     // Validate document photo format if provided
     if (verificationRequest.minor_id_document.document_photo) {
-      if (!isValidBase64Image(verificationRequest.minor_id_document.document_photo)) {
+      const photoData = typeof verificationRequest.minor_id_document.document_photo === 'string' 
+        ? verificationRequest.minor_id_document.document_photo 
+        : '';
+      if (photoData && !isValidBase64Image(photoData)) {
         return NextResponse.json(
           { success: false, error: 'Format de photo invalide pour le document du mineur' },
           { status: 400 }
@@ -133,7 +136,10 @@ export async function POST(request: NextRequest) {
     }
 
     if (verificationRequest.sponsor_id_document.document_photo) {
-      if (!isValidBase64Image(verificationRequest.sponsor_id_document.document_photo)) {
+      const photoData = typeof verificationRequest.sponsor_id_document.document_photo === 'string' 
+        ? verificationRequest.sponsor_id_document.document_photo 
+        : '';
+      if (photoData && !isValidBase64Image(photoData)) {
         return NextResponse.json(
           { success: false, error: 'Format de photo invalide pour le document du parrain' },
           { status: 400 }
