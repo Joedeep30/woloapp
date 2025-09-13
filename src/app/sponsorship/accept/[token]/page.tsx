@@ -336,7 +336,7 @@ export default function SponsorshipAcceptPage({ params }: SponsorshipAcceptPageP
                   <ul className="text-white/90 text-sm space-y-2">
                     <li>🎬 <strong>Cadeaux cinéma :</strong> Séances + popcorn + boissons</li>
                     <li className="flex items-center gap-2">
-                      <WaveLogo size={16} />
+                      <WaveLogo size={24} />
                       <span><strong>Paiements sécurisés :</strong> Via Wave Business</span>
                     </li>
                     <li>📱 <strong>Partage facile :</strong> Sur tous vos réseaux sociaux</li>
