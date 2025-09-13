@@ -24,8 +24,10 @@ export class PointsEngine {
   private pointTransactionsCrud: CrudOperations;
   private userPointsCrud: CrudOperations;
   private potsCrud: CrudOperations;
+  private token: string;
 
   constructor(token: string) {
+    this.token = token;
     this.pointRulesCrud = new CrudOperations('point_rules', token);
     this.pointTransactionsCrud = new CrudOperations('point_transactions', token);
     this.userPointsCrud = new CrudOperations('user_points', token);
@@ -315,7 +317,7 @@ export class PointsEngine {
   }
 
   private async getSponsorshipCount(userId: number): Promise<number> {
-    const sponsorshipsCrud = new CrudOperations('sponsorships', this.pointRulesCrud.token);
+    const sponsorshipsCrud = new CrudOperations('sponsorships', this.token);
     const sponsorships = await sponsorshipsCrud.findMany({
       sponsor_user_id: userId,
       status: 'accepted'
