@@ -167,11 +167,10 @@ app.use((req, res, next) => {
 // Service proxy configuration
 const createProxyMiddleware = (serviceName, serviceConfig) => {
   return httpProxy.createProxyMiddleware({
-    target: `http://localhost:${serviceConfig.PORT}`,
+    target: serviceConfig.target || `http://localhost:${serviceConfig.PORT}`,
     changeOrigin: true,
-    pathRewrite: (path, req) => {
-      // Remove the service prefix from the path
-      return path.replace(`/api/${serviceName}`, '');
+    pathRewrite: serviceConfig.pathRewrite || {
+      [`^/api/${serviceName}`]: `/api/v1/${serviceName}`
     },
     onError: (err, req, res) => {
       console.error(`Proxy error for ${serviceName}:`, err.message);
@@ -201,8 +200,8 @@ const createProxyMiddleware = (serviceName, serviceConfig) => {
       proxyRes.headers['X-Gateway'] = 'WOLO-API-Gateway';
       proxyRes.headers['X-Service'] = serviceName;
     },
-    timeout: 30000, // 30 seconds timeout
-    proxyTimeout: 30000
+    timeout: serviceConfig.timeout || 30000,
+    proxyTimeout: serviceConfig.timeout || 30000
   });
 };
 
