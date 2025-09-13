@@ -14,17 +14,16 @@ class CacheProvider {
    */
   async initialize() {
     try {
+      console.log('🗄️  Initializing cache connection...');
+      
       const redisConfig = {
         host: config.REDIS.HOST,
         port: config.REDIS.PORT,
         db: config.REDIS.DB,
-        retryStrategy: (retries) => {
-          if (retries > this.maxRetries) {
-            console.error('❌ Redis max retries exceeded');
-            return null;
-          }
-          return Math.min(retries * 50, 2000);
-        }
+        connectTimeout: 5000,
+        retryDelayOnFailover: 100,
+        enableReadyCheck: false,
+        maxRetriesPerRequest: 3
       };
 
       if (config.REDIS.PASSWORD) {
@@ -45,8 +44,9 @@ class CacheProvider {
       });
 
       this.client.on('error', (error) => {
-        console.error('❌ Redis client error:', error.message);
+        console.error('❌ Redis client error:');
         this.isConnected = false;
+        // Don't throw, just continue without Redis
       });
 
       this.client.on('end', () => {
@@ -56,19 +56,36 @@ class CacheProvider {
 
       this.client.on('reconnecting', () => {
         this.retryCount++;
-        console.log(`🔄 Redis reconnecting... (attempt ${this.retryCount})`);
+        if (this.retryCount <= 5) {
+          console.log(`🔄 Redis reconnecting... (attempt ${this.retryCount})`);
+        }
+        if (this.retryCount > 50) {
+          console.log('⚠️  Redis unavailable, continuing without cache...');
+          return;
+        }
       });
 
-      // Connect to Redis
-      await this.client.connect();
+      // Try to connect to Redis with timeout
+      const connectionPromise = this.client.connect();
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Redis connection timeout')), 3000)
+      );
       
-      // Test connection
-      await this.healthCheck();
+      try {
+        await Promise.race([connectionPromise, timeoutPromise]);
+        await this.healthCheck();
+        console.log('✅ Cache system ready with Redis');
+      } catch (error) {
+        console.log('⚠️  Redis unavailable, continuing without cache...');
+        this.isConnected = false;
+        // Don't throw error, continue without Redis
+      }
       
       return true;
     } catch (error) {
-      console.error('❌ Redis initialization failed:', error.message);
-      throw error;
+      console.log('⚠️  Cache initialization failed, continuing without cache...');
+      this.isConnected = false;
+      return true; // Don't fail, just continue without cache
     }
   }
 
