@@ -39,6 +39,8 @@ const nextConfig: NextConfig = {
   generateEtags: false,
   
   
+  serverExternalPackages: ['bcryptjs'],
+  
   eslint: {
     ignoreDuringBuilds: false,
   },
@@ -50,10 +52,6 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
   trailingSlash: false,
   skipTrailingSlashRedirect: true,
-  
-  experimental: {
-    serverComponentsExternalPackages: ['bcryptjs'],
-  },
 };
 
 export default nextConfig;
