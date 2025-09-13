@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Gift, Users, QrCode, Smartphone, Film, Heart, Share2, MessageCircle, Video, Camera, Calendar, AlertCircle, Star, Shield, Contact, Phone } from 'lucide-react';
+import { WaveLogo } from '@/components/ui/wave-logo';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
