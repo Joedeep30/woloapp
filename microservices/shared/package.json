@@ -1,0 +1,28 @@
+{
+  "name": "wolo-shared",
+  "version": "1.0.0",
+  "description": "WOLO Shared Components - Configuration, providers, and utilities",
+  "main": "config/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "joi": "^17.11.0",
+    "@supabase/supabase-js": "^2.38.0",
+    "redis": "^4.6.10",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "keywords": [
+    "wolo",
+    "shared",
+    "configuration",
+    "database",
+    "cache"
+  ],
+  "author": "WOLO Team",
+  "license": "MIT"
+}
