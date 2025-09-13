@@ -52,13 +52,23 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   skipTrailingSlashRedirect: true,
   
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.externals = config.externals || [];
-      config.externals.push('bcryptjs');
-    }
-    return config;
+  experimental: {
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
+  
+  // Turbopack configuration for externals
+  ...(process.env.NODE_ENV === 'development' ? {
+    experimental: {
+      serverComponentsExternalPackages: ['bcryptjs']
+    }
+  } : {}),
 };
 
 export default nextConfig;
