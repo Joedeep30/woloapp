@@ -129,7 +129,19 @@ const config = {
     MAX_CONTACTS_IMPORT: 1000,
     MAX_BULK_MESSAGE_RECIPIENTS: 100,
     REFERRAL_BONUS_POINTS: 10,
-    IDENTITY_VERIFICATION_BONUS_POINTS: 5
+    IDENTITY_VERIFICATION_BONUS_POINTS: 5,
+    
+    // Simplified Verification Settings
+    VERIFICATION_APPROACH: process.env.VERIFICATION_APPROACH || 'simplified', // 'strict' or 'simplified'
+    GUARDIAN_SMS_CODE_EXPIRY: 300, // 5 minutes
+    MAX_FAMILY_VOUCHERS: 3, // Maximum family members who can vouch
+    AUTO_APPROVE_THRESHOLD: 2, // Auto-approve if 2+ vouchers confirm
+    
+    // Photo ID alternatives
+    ALLOW_FAMILY_NAME_VERIFICATION: true,
+    ALLOW_SMS_VERIFICATION: true,
+    ALLOW_SOCIAL_VOUCHING: true,
+    REQUIRE_PHOTO_ID: false // Set to false for simplified approach
   }
 };
 
