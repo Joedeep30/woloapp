@@ -24,6 +24,7 @@ import {
 import { toast } from 'sonner';
 import { GoogleLoginButton } from '@/components/auth/GoogleLoginButton';
 import { Separator } from '@/components/ui/separator';
+import { WaveLogo } from '@/components/ui/wave-logo';
 
 interface SponsorshipAcceptPageProps {
   params: Promise<{
@@ -334,7 +335,10 @@ export default function SponsorshipAcceptPage({ params }: SponsorshipAcceptPageP
                   </h4>
                   <ul className="text-white/90 text-sm space-y-2">
                     <li>🎬 <strong>Cadeaux cinéma :</strong> Séances + popcorn + boissons</li>
-                    <li>💳 <strong>Paiements sécurisés :</strong> Via Wave Business</li>
+                    <li className="flex items-center gap-2">
+                      <WaveLogo size={16} />
+                      <span><strong>Paiements sécurisés :</strong> Via Wave Business</span>
+                    </li>
                     <li>📱 <strong>Partage facile :</strong> Sur tous vos réseaux sociaux</li>
                     <li>🎁 <strong>QR codes :</strong> Pour vos invités au cinéma</li>
                     <li>📊 <strong>Suivi en temps réel :</strong> De votre cagnotte</li>
