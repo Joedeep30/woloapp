@@ -184,7 +184,7 @@ export async function GET(request: NextRequest) {
     
     // Note: This would need to be implemented in WhatsAppService
     // For now, return a mock response structure
-    const contacts = []; // await whatsappService.getUserContacts(userId, { page, limit, search, wolo_users_only });
+    const contacts: any[] = []; // await whatsappService.getUserContacts(userId, { page, limit, search, wolo_users_only });
     
     return NextResponse.json({
       success: true,
