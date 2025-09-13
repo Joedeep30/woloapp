@@ -139,14 +139,18 @@ app.use(async (req, res, next) => {
 
 // Authentication middleware for protected routes
 const protectedRoutes = [
-  '/api/profile',
-  '/api/pots/create',
-  '/api/pots/manage',
-  '/api/sponsorship',
-  '/api/payments/donate',
-  '/api/identity/verify',
+  '/api/users/profile',
+  '/api/pots',
+  '/api/donations',
+  '/api/payments',
+  '/api/wallets',
   '/api/notifications',
-  '/api/analytics'
+  '/api/preferences',
+  '/api/analytics',
+  '/api/insights',
+  '/api/reports',
+  '/api/dashboard',
+  '/api/realtime'
 ];
 
 app.use((req, res, next) => {
@@ -251,14 +255,81 @@ app.use('/api/users', async (req, res, next) => {
   }
 });
 
-// Route configurations for other services
+// Route configurations for all microservices
 const serviceRoutes = {
-  'pots': config.SERVICES.POT_MANAGEMENT,
-  'sponsorship': config.SERVICES.SPONSORSHIP,
-  'payments': config.SERVICES.PAYMENT,
-  'notifications': config.SERVICES.NOTIFICATION,
-  'identity': config.SERVICES.IDENTITY_VERIFICATION,
-  'analytics': config.SERVICES.ANALYTICS
+  'pots': {
+    PORT: 3003,
+    target: process.env.POT_MANAGEMENT_URL || 'http://localhost:3003',
+    timeout: 15000
+  },
+  'discovery': {
+    PORT: 3003,
+    target: process.env.POT_MANAGEMENT_URL || 'http://localhost:3003',
+    timeout: 10000,
+    pathRewrite: { '^/api/discovery': '/api/v1/discovery' }
+  },
+  'donations': {
+    PORT: 3004,
+    target: process.env.PAYMENT_PROCESSING_URL || 'http://localhost:3004',
+    timeout: 20000
+  },
+  'payments': {
+    PORT: 3004,
+    target: process.env.PAYMENT_PROCESSING_URL || 'http://localhost:3004',
+    timeout: 20000
+  },
+  'wallets': {
+    PORT: 3004,
+    target: process.env.PAYMENT_PROCESSING_URL || 'http://localhost:3004',
+    timeout: 15000,
+    pathRewrite: { '^/api/wallets': '/api/v1/wallets' }
+  },
+  'notifications': {
+    PORT: 3005,
+    target: process.env.NOTIFICATION_URL || 'http://localhost:3005',
+    timeout: 10000
+  },
+  'templates': {
+    PORT: 3005,
+    target: process.env.NOTIFICATION_URL || 'http://localhost:3005',
+    timeout: 10000,
+    pathRewrite: { '^/api/templates': '/api/v1/templates' }
+  },
+  'preferences': {
+    PORT: 3005,
+    target: process.env.NOTIFICATION_URL || 'http://localhost:3005',
+    timeout: 10000,
+    pathRewrite: { '^/api/preferences': '/api/v1/preferences' }
+  },
+  'analytics': {
+    PORT: 3006,
+    target: process.env.ANALYTICS_URL || 'http://localhost:3006',
+    timeout: 25000
+  },
+  'insights': {
+    PORT: 3006,
+    target: process.env.ANALYTICS_URL || 'http://localhost:3006',
+    timeout: 20000,
+    pathRewrite: { '^/api/insights': '/api/v1/insights' }
+  },
+  'reports': {
+    PORT: 3006,
+    target: process.env.ANALYTICS_URL || 'http://localhost:3006',
+    timeout: 30000,
+    pathRewrite: { '^/api/reports': '/api/v1/reports' }
+  },
+  'dashboard': {
+    PORT: 3006,
+    target: process.env.ANALYTICS_URL || 'http://localhost:3006',
+    timeout: 15000,
+    pathRewrite: { '^/api/dashboard': '/api/v1/dashboard' }
+  },
+  'realtime': {
+    PORT: 3006,
+    target: process.env.ANALYTICS_URL || 'http://localhost:3006',
+    timeout: 10000,
+    pathRewrite: { '^/api/realtime': '/api/v1/realtime' }
+  }
 };
 
 // Set up proxy routes for each service
