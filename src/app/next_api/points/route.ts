@@ -16,6 +16,11 @@ const awardPointsSchema = z.object({
   metadata: z.any().optional()
 });
 
+const convertPointsSchema = z.object({
+  points_amount: z.number().min(10, 'Minimum 10 points requis').max(1000, 'Maximum 1000 points par conversion'),
+  action: z.enum(['convert_to_cfa', 'apply_to_next_pot'])
+});
+
 export const GET = requestMiddleware(async (request: NextRequest, params) => {
   try {
     const { limit, offset } = parseQueryParams(request);
