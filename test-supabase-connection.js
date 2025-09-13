@@ -1,5 +1,5 @@
 // Test Supabase connection for production deployment
-import { createClient } from '@supabase/supabase-js';
+import { PostgrestClient } from '@supabase/postgrest-js';
 import dotenv from 'dotenv';
 
 // Load environment variables
