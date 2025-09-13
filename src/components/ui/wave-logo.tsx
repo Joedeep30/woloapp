@@ -15,36 +15,49 @@ export const WaveLogo: React.FC<WaveLogoProps> = ({ className = '', size = 24 })
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Wave Senegal Penguin Logo */}
-      {/* Penguin body */}
-      <ellipse cx="50" cy="65" rx="25" ry="30" fill="#1E293B" />
+      {/* Wave Senegal Penguin Logo - Enhanced */}
       
-      {/* Penguin belly */}
-      <ellipse cx="50" cy="62" rx="18" ry="22" fill="#FFFFFF" />
+      {/* Shadow for depth */}
+      <ellipse cx="52" cy="67" rx="24" ry="28" fill="#000000" opacity="0.1" />
       
-      {/* Penguin head */}
-      <circle cx="50" cy="35" r="20" fill="#1E293B" />
+      {/* Penguin body - Darker for contrast */}
+      <ellipse cx="50" cy="65" rx="25" ry="30" fill="#0F172A" stroke="#334155" strokeWidth="1" />
       
-      {/* Penguin beak */}
-      <path d="M45 38 L55 38 L50 42 Z" fill="#F59E0B" />
+      {/* Penguin belly - Pure white for contrast */}
+      <ellipse cx="50" cy="62" rx="18" ry="22" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="0.5" />
       
-      {/* Penguin eyes */}
-      <circle cx="44" cy="32" r="3" fill="#FFFFFF" />
-      <circle cx="56" cy="32" r="3" fill="#FFFFFF" />
-      <circle cx="44" cy="32" r="1.5" fill="#1E293B" />
-      <circle cx="56" cy="32" r="1.5" fill="#1E293B" />
+      {/* Penguin head - Matching body */}
+      <circle cx="50" cy="35" r="20" fill="#0F172A" stroke="#334155" strokeWidth="1" />
       
-      {/* Penguin wings */}
-      <ellipse cx="30" cy="55" rx="8" ry="15" fill="#1E293B" transform="rotate(-20 30 55)" />
-      <ellipse cx="70" cy="55" rx="8" ry="15" fill="#1E293B" transform="rotate(20 70 55)" />
+      {/* Penguin beak - Wave orange/yellow */}
+      <path d="M42 38 L58 38 L50 45 Z" fill="#FF6B35" stroke="#DC2626" strokeWidth="0.5" />
       
-      {/* Penguin feet */}
-      <ellipse cx="42" cy="90" rx="4" ry="2" fill="#F59E0B" />
-      <ellipse cx="58" cy="90" rx="4" ry="2" fill="#F59E0B" />
+      {/* Penguin eyes - Larger and more expressive */}
+      <circle cx="43" cy="32" r="4" fill="#FFFFFF" stroke="#94A3B8" strokeWidth="0.5" />
+      <circle cx="57" cy="32" r="4" fill="#FFFFFF" stroke="#94A3B8" strokeWidth="0.5" />
+      <circle cx="43" cy="32" r="2" fill="#0F172A" />
+      <circle cx="57" cy="32" r="2" fill="#0F172A" />
       
-      {/* Wave pattern on belly */}
-      <path d="M35 55 Q42 50 50 55 T65 55" stroke="#3B82F6" strokeWidth="2" fill="none" />
-      <path d="M35 65 Q42 60 50 65 T65 65" stroke="#3B82F6" strokeWidth="2" fill="none" />
+      {/* Eye shine */}
+      <circle cx="44" cy="31" r="0.8" fill="#FFFFFF" />
+      <circle cx="58" cy="31" r="0.8" fill="#FFFFFF" />
+      
+      {/* Penguin wings - More defined */}
+      <ellipse cx="28" cy="55" rx="10" ry="18" fill="#0F172A" transform="rotate(-25 28 55)" stroke="#334155" strokeWidth="0.5" />
+      <ellipse cx="72" cy="55" rx="10" ry="18" fill="#0F172A" transform="rotate(25 72 55)" stroke="#334155" strokeWidth="0.5" />
+      
+      {/* Penguin feet - Wave orange */}
+      <ellipse cx="40" cy="92" rx="5" ry="3" fill="#FF6B35" stroke="#DC2626" strokeWidth="0.5" />
+      <ellipse cx="60" cy="92" rx="5" ry="3" fill="#FF6B35" stroke="#DC2626" strokeWidth="0.5" />
+      
+      {/* Wave pattern on belly - Wave blue */}
+      <path d="M32 52 Q40 48 50 52 T68 52" stroke="#0EA5E9" strokeWidth="2.5" fill="none" opacity="0.8" />
+      <path d="M32 60 Q40 56 50 60 T68 60" stroke="#0EA5E9" strokeWidth="2.5" fill="none" opacity="0.8" />
+      <path d="M32 68 Q40 64 50 68 T68 68" stroke="#0EA5E9" strokeWidth="2" fill="none" opacity="0.6" />
+      
+      {/* Wave logo accent */}
+      <circle cx="50" cy="20" r="3" fill="#0EA5E9" opacity="0.7" />
+      <text x="50" y="24" textAnchor="middle" fontSize="8" fill="#0EA5E9" fontWeight="bold">W</text>
     </svg>
   );
 };
