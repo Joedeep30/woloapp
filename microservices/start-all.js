@@ -40,17 +40,9 @@ const services = [
     emoji: '🎁'
   },
   {
-    name: 'Sponsorship Service',
+    name: 'Payment Processing',
     script: 'server.js',
-    directory: 'sponsorship-service',
-    port: 3003, 
-    color: colors.yellow,
-    emoji: '🤝'
-  },
-  {
-    name: 'Payment Service',
-    script: 'server.js',
-    directory: 'payment-service',
+    directory: 'payment-processing',
     port: 3004,
     color: colors.magenta,
     emoji: '💳'
@@ -58,7 +50,7 @@ const services = [
   {
     name: 'Notification Service',
     script: 'server.js',
-    directory: 'notification-service',
+    directory: 'notification',
     port: 3005,
     color: colors.red,
     emoji: '📢'
@@ -74,7 +66,7 @@ const services = [
   {
     name: 'Analytics Service',
     script: 'server.js',
-    directory: 'analytics-service',
+    directory: 'analytics',
     port: 3007,
     color: colors.bright + colors.green,
     emoji: '📈'
