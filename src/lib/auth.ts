@@ -99,3 +99,25 @@ export async function verifyToken(
     return { valid: false, code: AUTH_CODE.TOKEN_MISSING, payload: null };
   }
 }
+
+// NextAuth compatibility export (for API routes)
+export const authOptions = {
+  providers: [],
+  callbacks: {
+    async jwt({ token, user }: any) {
+      if (user) {
+        token.role = user.role;
+        token.isAdmin = user.role === process.env.SCHEMA_ADMIN_USER;
+      }
+      return token;
+    },
+    async session({ session, token }: any) {
+      if (token) {
+        session.user.role = token.role;
+        session.user.isAdmin = token.isAdmin;
+      }
+      return session;
+    },
+  },
+  secret: process.env.JWT_SECRET,
+};
