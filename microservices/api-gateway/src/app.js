@@ -411,11 +411,18 @@ app.get('/', (req, res) => {
       services: {
         users: '/api/users',
         pots: '/api/pots',
-        sponsorship: '/api/sponsorship',
+        discovery: '/api/discovery',
+        donations: '/api/donations',
         payments: '/api/payments',
+        wallets: '/api/wallets',
         notifications: '/api/notifications',
-        identity: '/api/identity',
-        analytics: '/api/analytics'
+        preferences: '/api/preferences',
+        templates: '/api/templates',
+        analytics: '/api/analytics',
+        insights: '/api/insights',
+        reports: '/api/reports',
+        dashboard: '/api/dashboard',
+        realtime: '/api/realtime'
       }
     },
     documentation: {
@@ -457,11 +464,18 @@ app.use('*', (req, res) => {
     availableEndpoints: {
       users: '/api/users',
       pots: '/api/pots',
-      sponsorship: '/api/sponsorship',
+      discovery: '/api/discovery',
+      donations: '/api/donations',
       payments: '/api/payments',
+      wallets: '/api/wallets',
       notifications: '/api/notifications',
-      identity: '/api/identity',
-      analytics: '/api/analytics'
+      preferences: '/api/preferences',
+      templates: '/api/templates',
+      analytics: '/api/analytics',
+      insights: '/api/insights',
+      reports: '/api/reports',
+      dashboard: '/api/dashboard',
+      realtime: '/api/realtime'
     }
   });
 });
