@@ -11,7 +11,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Gift, Users, QrCode, Smartphone, Film, Heart, Share2, MessageCircle, Video, Camera, Calendar, AlertCircle, UserPlus, Star, Shield, Contact, Phone } from 'lucide-react';
+import { Gift, Users, QrCode, Smartphone, Film, Heart, Share2, MessageCircle, Video, Camera, Calendar, AlertCircle, Star, Shield, Contact, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
@@ -262,28 +262,6 @@ export default function PageInviteVisiteur() {
     }
   };
 
-  const handleCreateForMinor = () => {
-    if (!minorPotData.minorName) {
-      setMinorPotError('Veuillez saisir le nom du mineur');
-      return;
-    }
-    if (!validateMinorBirthdayDate(minorPotData.minorBirthday)) {
-      return;
-    }
-
-    // Vérifier l'authentification requise
-    toast.info('Authentification requise pour gérer un mineur...');
-    
-    // Rediriger vers la page d'authentification avec les paramètres
-    const params = new URLSearchParams({
-      action: 'create_minor_pot',
-      minor_name: minorPotData.minorName,
-      minor_birthday: minorPotData.minorBirthday
-    });
-    
-    window.open(`/auth/minor-management?${params.toString()}`, '_blank');
-    setShowCreateForMinor(false);
-  };
 
   const handleSponsorPerson = () => {
     if (!sponsorData.relation) {
