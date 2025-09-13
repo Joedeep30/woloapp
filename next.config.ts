@@ -38,7 +38,6 @@ const nextConfig: NextConfig = {
   compress: true,
   generateEtags: false,
   
-  serverExternalPackages: ['bcryptjs'],
   
   eslint: {
     ignoreDuringBuilds: false,
@@ -53,22 +52,8 @@ const nextConfig: NextConfig = {
   skipTrailingSlashRedirect: true,
   
   experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
+    serverComponentsExternalPackages: ['bcryptjs'],
   },
-  
-  // Turbopack configuration for externals
-  ...(process.env.NODE_ENV === 'development' ? {
-    experimental: {
-      serverComponentsExternalPackages: ['bcryptjs']
-    }
-  } : {}),
 };
 
 export default nextConfig;
