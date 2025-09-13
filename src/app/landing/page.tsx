@@ -557,7 +557,7 @@ export default function PageInviteVisiteur() {
                     size="lg"
                     className="bg-green-500 hover:bg-green-600 text-white font-bold px-16 py-8 text-3xl rounded-full shadow-2xl border-4 border-green-300/70 drop-shadow-2xl flex items-center gap-3"
                   >
-                    <WaveLogo size={32} className="drop-shadow-lg" />
+                    <WaveLogo size={48} className="drop-shadow-lg" />
                     Participer maintenant
                   </Button>
                 </motion.div>
