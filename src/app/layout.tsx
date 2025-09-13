@@ -20,8 +20,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "WOLO SENEGAL",
-  description: "Plateforme de cagnottes d'anniversaire avec cadeaux cinéma",
+  title: "WOLO SENEGAL - Cagnottes d'anniversaire avec cadeaux cinéma",
+  description: "Créez des cagnottes d'anniversaire uniques avec WOLO SENEGAL. Recevez des QR codes cinéma et profitez d'expériences mémorables avec vos proches. Paiements sécurisés via Wave Mobile.",
+  keywords: "cagnotte anniversaire, cadeau cinéma, WOLO SENEGAL, Wave Mobile, QR code cinéma, fête anniversaire",
+  authors: [{ name: "WOLO SENEGAL" }],
+  creator: "WOLO SENEGAL",
+  publisher: "Connect Africa",
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '16x16', type: 'image/x-icon' }
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
+    ],
+    shortcut: '/favicon.ico'
+  },
+  openGraph: {
+    title: 'WOLO SENEGAL - Cagnottes d\'anniversaire avec cadeaux cinéma',
+    description: 'Créez des cagnottes d\'anniversaire uniques avec des cadeaux cinéma. Paiements via Wave Mobile.',
+    type: 'website',
+    locale: 'fr_SN',
+    siteName: 'WOLO SENEGAL'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'WOLO SENEGAL',
+    description: 'Cagnottes d\'anniversaire avec cadeaux cinéma au Sénégal'
+  },
+  viewport: 'width=device-width, initial-scale=1',
+  robots: 'index, follow'
 };
 
 export default function RootLayout({

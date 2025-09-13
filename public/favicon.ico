@@ -1,0 +1,3 @@
+# This should be a proper ICO file in production
+# For now, browsers will fall back to the SVG favicon
+# Convert the SVG to ICO format using online tools or imagemagick
