@@ -308,7 +308,7 @@ export class WavePaymentService {
     try {
       // In production, implement proper HMAC SHA256 verification
       // For now, just check if signature exists
-      return signature && signature.length > 0;
+      return !!(signature && signature.length > 0);
 
       // Real implementation would be:
       // const crypto = require('crypto');
