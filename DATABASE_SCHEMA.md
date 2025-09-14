@@ -239,6 +239,74 @@ CREATE TABLE points_conversions (
     
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Daily invitation limits and tracking
+CREATE TABLE sponsor_daily_limits (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    sponsor_user_id UUID NOT NULL REFERENCES users(id),
+    limit_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    
+    -- Daily limits
+    max_invitations_per_day INTEGER NOT NULL DEFAULT 50,
+    invitations_sent_today INTEGER NOT NULL DEFAULT 0,
+    
+    -- Batch selection tracking
+    current_batch_start INTEGER DEFAULT 0, -- Starting position in contact list
+    preferred_selection_method VARCHAR(20) DEFAULT 'batch', -- 'batch', 'individual'
+    
+    -- Reset tracking
+    last_reset_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    next_reset_at TIMESTAMP WITH TIME ZONE DEFAULT (CURRENT_DATE + INTERVAL '1 day')::TIMESTAMP WITH TIME ZONE,
+    
+    -- Engagement metrics
+    consecutive_active_days INTEGER DEFAULT 0,
+    total_lifetime_invitations INTEGER DEFAULT 0,
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Ensure one record per sponsor per day
+    UNIQUE(sponsor_user_id, limit_date),
+    
+    -- Ensure we don't exceed daily limit
+    CONSTRAINT check_daily_limit CHECK (invitations_sent_today <= max_invitations_per_day)
+);
+
+-- Contact selection batches for sponsors
+CREATE TABLE sponsor_contact_batches (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    sponsor_user_id UUID NOT NULL REFERENCES users(id),
+    batch_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    
+    -- Batch configuration
+    batch_number INTEGER NOT NULL DEFAULT 1, -- Which batch of 50 for the day
+    start_position INTEGER NOT NULL, -- Starting index in contact list
+    end_position INTEGER NOT NULL, -- Ending index in contact list
+    
+    -- Batch status
+    status VARCHAR(20) DEFAULT 'pending', -- 'pending', 'selected', 'sent', 'skipped'
+    selected_count INTEGER DEFAULT 0,
+    sent_count INTEGER DEFAULT 0,
+    
+    -- Contact data snapshot (for consistency)
+    contact_snapshot JSONB, -- Array of contact objects for this batch
+    
+    -- Selection preferences
+    auto_selected BOOLEAN DEFAULT false,
+    manual_selections JSONB, -- Array of manually selected contact IDs
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Ensure logical batch positions
+    CONSTRAINT check_batch_positions CHECK (end_position > start_position),
+    CONSTRAINT check_batch_size CHECK (end_position - start_position <= 50)
+);
+
+-- Enhanced referrals table with daily limit tracking
+ALTER TABLE referrals ADD COLUMN daily_limit_id UUID REFERENCES sponsor_daily_limits(id);
+ALTER TABLE referrals ADD COLUMN batch_id UUID REFERENCES sponsor_contact_batches(id);
+ALTER TABLE referrals ADD COLUMN invitation_order INTEGER; -- Order within the day (1-50)
 ```
 
 **Key Features**:
