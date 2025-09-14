@@ -1232,8 +1232,16 @@ CREATE INDEX idx_profiles_guardian_user_id ON profiles(guardian_user_id) WHERE g
 CREATE INDEX idx_referrals_sponsor_user_id ON referrals(sponsor_user_id);
 CREATE INDEX idx_referrals_referral_code ON referrals(referral_code);
 CREATE INDEX idx_referrals_status ON referrals(status);
+CREATE INDEX idx_referrals_daily_limit_id ON referrals(daily_limit_id) WHERE daily_limit_id IS NOT NULL;
+CREATE INDEX idx_referrals_invitation_order ON referrals(invitation_order) WHERE invitation_order IS NOT NULL;
 CREATE INDEX idx_points_ledger_sponsor_user_id ON points_ledger(sponsor_user_id);
 CREATE INDEX idx_points_ledger_status ON points_ledger(status);
+
+-- Daily invitation limits
+CREATE INDEX idx_sponsor_daily_limits_user_date ON sponsor_daily_limits(sponsor_user_id, limit_date);
+CREATE INDEX idx_sponsor_daily_limits_next_reset ON sponsor_daily_limits(next_reset_at);
+CREATE INDEX idx_sponsor_contact_batches_user_date ON sponsor_contact_batches(sponsor_user_id, batch_date);
+CREATE INDEX idx_sponsor_contact_batches_status ON sponsor_contact_batches(status);
 
 -- Pots and lifecycle
 CREATE INDEX idx_pots_owner_user_id ON pots(owner_user_id);
