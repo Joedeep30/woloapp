@@ -159,7 +159,6 @@ export async function sendVerificationEmail(
     return true;
   }
 
-const url = undefined as unknown as string // Zoer removed; provider not configured
 
   await fetch(url, {
     method: "POST",
