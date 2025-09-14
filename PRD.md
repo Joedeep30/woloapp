@@ -19,6 +19,13 @@ Tech-wise, we adopt a **hybrid architecture**: **Web (Next.js)** for admin, SEO 
 
 > Status legend: ✅ Completed | 🚧 In progress | ❌ Not started | 🟡 Needs review
 
+### Status Snapshot (At-a-glance)
+- Frontend Implementation: ❌ Not started
+- Backend APIs: ❌ Not started
+- Mobile Optimization: 🚧 In planning
+- Payment Integration (Wave): ❌ Not integrated
+- WhatsApp Integration: ❌ Not started
+
 ### ✅ **COMPLETED & FUNCTIONAL**
 
 #### **Frontend Infrastructure**
