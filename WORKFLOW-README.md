@@ -1,5 +1,7 @@
 # Seamless Update Workflow for WoloApp
 
+> Status legend: ✅ Completed | 🚧 In progress | ❌ Not started | 🟡 Needs review
+
 This document explains how to make updates to the WoloApp project that will automatically appear on wolosenegal.com without any manual intervention.
 
 ## How It Works

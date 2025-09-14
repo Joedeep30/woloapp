@@ -17,7 +17,7 @@ Tech-wise, we adopt a **hybrid architecture**: **Web (Next.js)** for admin, SEO 
 
 ## 2) Current Project Status
 
-> Status legend: ✅ Completed | 🚧 In progress | ❌ Not started
+> Status legend: ✅ Completed | 🚧 In progress | ❌ Not started | 🟡 Needs review
 
 ### ✅ **COMPLETED & FUNCTIONAL**
 

@@ -2,7 +2,7 @@
 
 ## 📊 HIERARCHICAL STRUCTURE OVERVIEW
 
-> Legend: ✅ Done | 🚧 In progress | ❌ Not started (used across dashboards)
+> Legend: ✅ Done | 🚧 In progress | ❌ Not started | 🟡 Needs review (used across dashboards)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐

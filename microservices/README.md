@@ -1,5 +1,7 @@
 # WOLO Microservices Architecture
 
+> Status legend: ✅ Completed | 🚧 In progress | ❌ Not started | 🟡 Needs review
+
 🚀 **Modern, scalable microservices architecture for the WOLO birthday crowdfunding platform**
 
 ## 🏗️ Architecture Overview

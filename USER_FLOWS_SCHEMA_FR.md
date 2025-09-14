@@ -10,7 +10,7 @@
 
 ## 🔄 SUIVI STATUT D'IMPLÉMENTATION
 
-> Légende statut: ✅ Terminé | 🚧 En cours | ❌ Non commencée
+> Légende statut: ✅ Terminé | 🚧 En cours | ❌ Non commencée | 🟡 À valider
 
 ### **Statut Développement Actuel**
 - **Schéma Base de Données** : ✅ Entièrement Documenté (10 microservices, 40+ tables)

@@ -11,7 +11,7 @@
 
 La base de données WoloApp est conçue avec une **approche microservices-first** utilisant PostgreSQL comme magasin de données principal. Chaque service a son propre schéma logique tout en résidant dans une seule base de données initialement, avec la possibilité de séparer en bases de données distinctes lors du passage à l'échelle.
 
-> Légende statut: ✅ Terminé | 🚧 En cours | ❌ Non implémenté
+> Légende statut: ✅ Terminé | 🚧 En cours | ❌ Non implémenté | 🟡 À valider
 
 ### **Statut d'Implémentation Actuel**
 - **Moteur de Base de Données** : PostgreSQL (planifié)
