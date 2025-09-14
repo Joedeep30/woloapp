@@ -107,6 +107,12 @@ Tech-wise, we adopt a **hybrid architecture**: **Web (Next.js)** for admin, SEO 
 
 ## 3) Objectives & KPIs
 
+### 🟡 Pending Review (Needs Approval)
+- UI StatusBadge component (Option B) — reusable React/Next component per STATUS_STYLE_GUIDE.md
+- Red Cross partner integration (Option C) — scope: partner onboarding, pack alignment, compliance
+- A/B testing framework scope — experiments, metrics, statistical thresholds
+- WhatsApp Bot integration — scope, provider constraints, compliance review
+
 **Business Objectives**
 * Deliver a fast, smooth (Wave), and reliable MVP for Senegal
 * Sponsorship becomes the #1 acquisition channel (≥ 60% new users via invitations at M+3)
