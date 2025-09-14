@@ -159,7 +159,7 @@ export async function sendVerificationEmail(
     return true;
   }
 
-  const url = `${process.env.NEXT_PUBLIC_ZOER_HOST}/zapi/app/email/send`;
+const url = undefined as unknown as string // Zoer removed; provider not configured
 
   await fetch(url, {
     method: "POST",
