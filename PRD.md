@@ -147,6 +147,8 @@ Tech-wise, we adopt a **hybrid architecture**: **Web (Next.js)** for admin, SEO 
 **Timeline: 4-6 weeks**
 - [ ] Pot creation and management system
 - [ ] Wave payment integration (sandbox → production)
+- [ ] **Daily Invitation Limits System** with batch/individual selection
+- [ ] **Engagement Gamification** (streaks, daily rewards)
 - [ ] Basic sponsorship/referral system
 - [ ] WhatsApp invitation links
 - [ ] Points system foundation
