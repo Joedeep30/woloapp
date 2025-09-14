@@ -11,6 +11,8 @@
 
 The WoloApp database is designed with a **microservices-first approach** using PostgreSQL as the primary data store. Each service has its own logical schema while residing in a single database initially, with the ability to split into separate databases as we scale.
 
+> Status legend: ✅ Done | 🚧 In progress | ❌ Not implemented
+
 ### **Current Implementation Status**
 - **Database Engine**: PostgreSQL (planned)
 - **ORM/Query Layer**: PostgREST + custom API endpoints

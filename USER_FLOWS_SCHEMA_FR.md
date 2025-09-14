@@ -10,6 +10,8 @@
 
 ## 🔄 SUIVI STATUT D'IMPLÉMENTATION
 
+> Légende statut: ✅ Terminé | 🚧 En cours | ❌ Non commencée
+
 ### **Statut Développement Actuel**
 - **Schéma Base de Données** : ✅ Entièrement Documenté (10 microservices, 40+ tables)
 - **Logique Flux Utilisateur** : ✅ Détaillée et Optimisée
