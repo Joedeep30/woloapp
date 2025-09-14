@@ -113,9 +113,12 @@ Tech-wise, we adopt a **hybrid architecture**: **Web (Next.js)** for admin, SEO 
 **Quarterly KPIs**
 * **Activation**: ≥ 55% of invited sponsored users accept + confirm DOB
 * **Virality (K-factor)**: ≥ 1.2 accepted sponsored users per active sponsor
+* **Daily Engagement**: ≥ 65% of sponsors return within 24 hours to use remaining invites
+* **Sponsor Retention**: ≥ 40% of sponsors remain active for 7+ consecutive days
 * **Conversion**: ≥ 35% of opened pots receive ≥ 1 donation before date
 * **Redemption**: ≥ 85% of funded Packs consumed ≤ 45 days after birthday
 * **Performance**: API P95 < 300ms | TTI P95 < 2.5s on 3G
+* **Anti-Spam Effectiveness**: < 5% of users report invitation fatigue or spam complaints
 
 ---
 
