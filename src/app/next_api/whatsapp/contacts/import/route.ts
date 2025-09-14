@@ -1,3 +1,32 @@
+import { NextRequest } from "next/server";
+import { createErrorResponse, createSuccessResponse } from "@/lib/create-response";
+import { validateRequestBody, requestMiddleware } from "@/lib/api-utils";
+import { WhatsAppService, WhatsAppContact } from "@/lib/whatsapp-service";
+
+export const POST = requestMiddleware(async (request: NextRequest) => {
+  try {
+    const body = await validateRequestBody(request);
+    const { userId, contacts } = body as { userId: number; contacts: WhatsAppContact[] };
+
+    if (!userId || !Array.isArray(contacts)) {
+      return createErrorResponse({
+        errorMessage: "Missing required fields: userId, contacts[]",
+        status: 400,
+      });
+    }
+
+    const svc = new WhatsAppService();
+    const result = await svc.importContacts(Number(userId), contacts);
+
+    return createSuccessResponse(result, 200);
+  } catch (error: any) {
+    return createErrorResponse({
+      errorMessage: error?.message || "Failed to import WhatsApp contacts",
+      status: 500,
+    });
+  }
+}, false);
+
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';

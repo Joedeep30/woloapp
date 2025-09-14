@@ -1,3 +1,24 @@
+import { NextRequest } from "next/server";
+import { createErrorResponse, createSuccessResponse } from "@/lib/create-response";
+import { WavePaymentService, WaveWebhookPayload } from "@/lib/wave-payment-service";
+
+export async function POST(request: NextRequest) {
+  try {
+    const payload = (await request.json()) as WaveWebhookPayload;
+    const signature = request.headers.get("x-wave-signature") || request.headers.get("wave-signature") || "";
+
+    const svc = new WavePaymentService("");
+    await svc.processWebhook(payload, signature);
+
+    return createSuccessResponse({ ok: true }, 200);
+  } catch (error: any) {
+    return createErrorResponse({
+      errorMessage: error?.message || "Failed to process Wave webhook",
+      status: 500,
+    });
+  }
+}
+
 import { NextRequest } from 'next/server';
 import { createSuccessResponse, createErrorResponse } from '@/lib/create-response';
 import { WavePaymentService, WaveWebhookPayload } from '@/lib/wave-payment-service';
