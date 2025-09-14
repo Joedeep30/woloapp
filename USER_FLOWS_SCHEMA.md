@@ -353,15 +353,15 @@ GUEST PAGES & FLOWS:
 │ • Remaining count display│ • Colleague              │ • Language options      │
 └───────────────────────────────────────────────────────────────────────────┘
 
-2️⃣ INVITATION MANAGEMENT
-┌─────────────────────────────────────────────────────────────────────────────┐
+2️⃣ INVITATION MANAGEMENT WITH DAILY LIMITS
+┌───────────────────────────────────────────────────────────────────────────┐
 │ Send Invitations        │ Track Responses          │ Follow-up Actions       │
 │ ────────────────────    │ ─────────────────────   │ ─────────────────────   │
-│ • WhatsApp direct send  │ • Acceptance tracking    │ • Reminder messages     │
-│ • Multiple recipients   │ • Response analytics     │ • Additional invites    │
-│ • Scheduled sending     │ • Status dashboard       │ • Personal follow-up    │
-│ • Delivery confirmation │ • Success metrics        │ • Support assistance    │
-└─────────────────────────────────────────────────────────────────────────────┘
+│ • Daily limit awareness  │ • Acceptance tracking    │ • Tomorrow's batch prep  │
+│ • Batch-first sending   │ • Response analytics     │ • Daily streak rewards  │
+│ • Individual selections  │ • Limit usage dashboard  │ • Strategic planning    │
+│ • Smart queue management │ • Engagement metrics     │ • Next-day reminders    │
+└───────────────────────────────────────────────────────────────────────────┘
 
 3️⃣ REWARDS & TRACKING
 ┌─────────────────────────────────────────────────────────────────────────────┐
