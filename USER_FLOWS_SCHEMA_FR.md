@@ -329,9 +329,19 @@ PAGES & FLUX INVITÉ:
 ### 👨‍👧‍👦 PARRAIN - CAPACITÉS DÉTAILLÉES
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
+┌───────────────────────────────────────────────────────────────────────────┐
 │                        CAPACITÉS PARRAIN (SPONSOR)                         │
-└─────────────────────────────────────────────────────────────────────────────┘
+└───────────────────────────────────────────────────────────────────────────┘
+
+0️⃣ LIMITES QUOTIDIENNES INVITATIONS & ENGAGEMENT 🎆 NOUVELLE FONCTIONNALITÉ
+┌───────────────────────────────────────────────────────────────────────────┐
+│ Système Limites Quotidiennes│ Méthodes Sélection       │ Mécaniques Engagement    │
+│ ─────────────────────────│ ───────────────────────       │ ────────────────────    │
+│ • 50 invitations par jour  │ • Sélection batch (50 premiers)│ • Incitation retour quotidien│
+│ • Réinitialisation minuit   │ • Piochage individuel      │ • Séries jours consécutifs  │
+│ • Compteur limite visuel   │ • Mixé batch + individuel  │ • Gamification progrès   │
+│ • Protection anti-spam     │ • Tri contacts intelligent │ • Analyses engagement     │
+└───────────────────────────────────────────────────────────────────────────┘
 
 1️⃣ CRÉATION PARRAINAGE
 ┌─────────────────────────────────────────────────────────────────────────────┐
