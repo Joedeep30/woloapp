@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { Toaster } from "@/components/ui/toaster";
-import ZoerCopilot from "@/components/ZoerCopilot";
 import { ProcessCleanupProvider } from "@/components/ProcessCleanupProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -72,7 +71,6 @@ export default function RootLayout({
             <AuthProvider>
               {children}
               <Toaster />
-              <ZoerCopilot />
               <SpeedInsights />
             </AuthProvider>
           </ThemeProvider>
