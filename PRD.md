@@ -28,6 +28,13 @@ Tech-wise, we adopt a **hybrid architecture**: **Web (Next.js)** for admin, SEO 
 - ✅ Auto-sync system with GitHub integration
 - ✅ Vercel deployment pipeline configured
 
+#### **New Engagement Features 🎆**
+- ✅ **Daily Invitation Limits System** designed and documented
+- ✅ **Batch vs Individual Selection** workflow specified
+- ✅ **Daily Comeback Incentives** gamification strategy
+- ✅ **Anti-Spam Protection** via 50/day invitation limit
+- ✅ **Engagement Analytics** tracking for sponsor retention
+
 #### **Core Features Implemented**
 - ✅ Landing page with countdown timer functionality
 - ✅ Email collection popup with toast notifications
