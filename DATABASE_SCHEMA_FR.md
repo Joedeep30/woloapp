@@ -239,6 +239,74 @@ CREATE TABLE points_conversions (
     
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Limites quotidiennes invitations et suivi
+CREATE TABLE sponsor_daily_limits (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    sponsor_user_id UUID NOT NULL REFERENCES users(id),
+    limit_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    
+    -- Limites quotidiennes
+    max_invitations_per_day INTEGER NOT NULL DEFAULT 50,
+    invitations_sent_today INTEGER NOT NULL DEFAULT 0,
+    
+    -- Suivi sélection batch
+    current_batch_start INTEGER DEFAULT 0, -- Position début dans liste contacts
+    preferred_selection_method VARCHAR(20) DEFAULT 'batch', -- 'batch', 'individual'
+    
+    -- Suivi réinitialisation
+    last_reset_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    next_reset_at TIMESTAMP WITH TIME ZONE DEFAULT (CURRENT_DATE + INTERVAL '1 day')::TIMESTAMP WITH TIME ZONE,
+    
+    -- Métriques engagement
+    consecutive_active_days INTEGER DEFAULT 0,
+    total_lifetime_invitations INTEGER DEFAULT 0,
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Assurer un enregistrement par parrain par jour
+    UNIQUE(sponsor_user_id, limit_date),
+    
+    -- Assurer ne pas dépasser limite quotidienne
+    CONSTRAINT check_daily_limit CHECK (invitations_sent_today <= max_invitations_per_day)
+);
+
+-- Batches sélection contacts pour parrains
+CREATE TABLE sponsor_contact_batches (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    sponsor_user_id UUID NOT NULL REFERENCES users(id),
+    batch_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    
+    -- Configuration batch
+    batch_number INTEGER NOT NULL DEFAULT 1, -- Quel batch de 50 pour la journée
+    start_position INTEGER NOT NULL, -- Index début dans liste contacts
+    end_position INTEGER NOT NULL, -- Index fin dans liste contacts
+    
+    -- Statut batch
+    status VARCHAR(20) DEFAULT 'pending', -- 'pending', 'selected', 'sent', 'skipped'
+    selected_count INTEGER DEFAULT 0,
+    sent_count INTEGER DEFAULT 0,
+    
+    -- Snapshot données contacts (pour cohérence)
+    contact_snapshot JSONB, -- Array objets contact pour ce batch
+    
+    -- Préférences sélection
+    auto_selected BOOLEAN DEFAULT false,
+    manual_selections JSONB, -- Array IDs contacts sélectionnés manuellement
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Assurer positions batch logiques
+    CONSTRAINT check_batch_positions CHECK (end_position > start_position),
+    CONSTRAINT check_batch_size CHECK (end_position - start_position <= 50)
+);
+
+-- Table referrals améliorée avec suivi limites quotidiennes
+ALTER TABLE referrals ADD COLUMN daily_limit_id UUID REFERENCES sponsor_daily_limits(id);
+ALTER TABLE referrals ADD COLUMN batch_id UUID REFERENCES sponsor_contact_batches(id);
+ALTER TABLE referrals ADD COLUMN invitation_order INTEGER; -- Ordre dans la journée (1-50)
 ```
 
 **Fonctionnalités Clés** :
