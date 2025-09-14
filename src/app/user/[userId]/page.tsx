@@ -156,7 +156,7 @@ export default function UserPage({ params }: UserPageProps) {
 
   // Partage vidéo sur les murs (pour le propriétaire) - FONCTIONNEL AVEC INSTAGRAM
   const handleVideoWallShare = () => {
-    const videoUrl = `https://wolo-cagnotte.zoer.ai/video/birthday-invitation-${userId}`;
+    const videoUrl = `${window.location.origin}/video/birthday-invitation-${userId}`;
     const shareText = `Regardez ma vidéo d'invitation pour mon anniversaire ! ${videoUrl}`;
     
     const platforms = [
@@ -200,7 +200,7 @@ export default function UserPage({ params }: UserPageProps) {
 
   // Invitation directe aux contacts - FONCTIONNEL AVEC INSTAGRAM
   const handleDirectInvite = (platform: string) => {
-    const inviteText = `Salut ! Tu es invité(e) à mon anniversaire ! Participe à ma cagnotte WOLO : https://wolo-cagnotte.zoer.ai/user/${userId}`;
+    const inviteText = `Salut ! Tu es invité(e) à mon anniversaire ! Participe à ma cagnotte WOLO : ${window.location.origin}/user/${userId}`;
     
     switch (platform) {
       case 'whatsapp':
@@ -208,7 +208,7 @@ export default function UserPage({ params }: UserPageProps) {
         toast.success('WhatsApp ouvert avec le message d\'invitation !');
         break;
       case 'facebook':
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://wolo-cagnotte.zoer.ai/user/${userId}`)}`, '_blank');
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${window.location.origin}/user/${userId}`)}`, '_blank');
         toast.success('Sélecteur d\'amis Facebook ouvert !');
         break;
       case 'tiktok':
@@ -258,7 +258,7 @@ export default function UserPage({ params }: UserPageProps) {
     );
   }
 
-  const shareUrl = `https://wolo-cagnotte.zoer.ai/user/${user.id}`;
+  const shareUrl = `${window.location.origin}/user/${user.id}`;
   const participantCount = donations.filter(d => d.status === 'completed').length;
   const progressPercentage = pot.target_amount ? (pot.current_amount / pot.target_amount) * 100 : 0;
 

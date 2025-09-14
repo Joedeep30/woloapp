@@ -446,14 +446,14 @@ function OwnerDashboardContent() {
   const handleVideoWallShare = async () => {
     toast.info('Connexion à Facebook...');
     
-    const videoUrl = 'https://wolo-cagnotte.zoer.ai/video/birthday-invitation';
+    const videoUrl = `${window.location.origin}/video/birthday-invitation`;
     const shareText = `Regardez ma vidéo d'invitation pour mon anniversaire ! ${videoUrl}`;
     
     // Partage automatique sur tous les réseaux - FONCTIONNEL AVEC INSTAGRAM
     const platforms = [
       {
         name: 'Facebook',
-        url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(videoUrl)}`,
+        url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${window.location.origin}/user/${user.id}`)}`,
         delay: 0
       },
       {
@@ -503,7 +503,7 @@ function OwnerDashboardContent() {
 
   // Invitation directe aux contacts - FONCTIONNEL AVEC INSTAGRAM
   const handleDirectInvite = (platform: string) => {
-    const inviteText = `Salut ! Tu es invité(e) à mon anniversaire ! Participe à ma cagnotte WOLO : https://wolo-cagnotte.zoer.ai/user/${user.id}`;
+    const inviteText = `Salut ! Tu es invité(e) à mon anniversaire ! Participe à ma cagnotte WOLO : ${window.location.origin}/user/${user.id}`;
     
     switch (platform) {
       case 'whatsapp':
@@ -534,7 +534,7 @@ function OwnerDashboardContent() {
   const handleFacebookFriendsInvite = async () => {
     toast.info('Ouverture du sélecteur d\'amis Facebook...');
     
-    const facebookInviteUrl = `https://www.facebook.com/dialog/send?app_id=YOUR_APP_ID&link=${encodeURIComponent(`https://wolo-cagnotte.zoer.ai/user/${user.id}`)}&redirect_uri=${encodeURIComponent(window.location.href)}`;
+    const facebookInviteUrl = `https://www.facebook.com/dialog/send?app_id=YOUR_APP_ID&link=${encodeURIComponent(`${window.location.origin}/user/${user.id}`)}&redirect_uri=${encodeURIComponent(window.location.href)}`;
     window.open(facebookInviteUrl, '_blank', 'width=600,height=400');
     
     setTimeout(() => {
