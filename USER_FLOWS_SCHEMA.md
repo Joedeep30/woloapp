@@ -1091,6 +1091,8 @@ LOOP 3: DONOR → NEW POT CREATOR (Discovery Loop)
 
 ## 📋 TECHNICAL INTEGRATION CHECKLIST
 
+> Status legend: ✅ Done | 🚧 In progress | ❌ Not started | 🟡 Needs review
+
 ### **Database Integration Tasks**
 - [ ] PostgreSQL database creation and setup
 - [ ] Migration scripts for all 10 microservices

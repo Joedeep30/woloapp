@@ -1090,6 +1090,8 @@ BOUCLE 3: DONATEUR → NOUVEAU CRÉATEUR POT (Boucle Découverte)
 
 ## 📋 CHECKLIST INTÉGRATION TECHNIQUE
 
+> Légende statut: ✅ Terminé | 🚧 En cours | ❌ Non commencée | 🟡 À valider
+
 ### **Tâches Intégration Base de Données**
 - [ ] Création et configuration base de données PostgreSQL
 - [ ] Scripts de migration pour tous les 10 microservices
