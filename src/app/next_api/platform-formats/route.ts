@@ -93,6 +93,18 @@ export const POST = requestMiddleware(async (request: NextRequest, params) => {
     
     const newFormat = await formatsCrud.create(formatData);
     
+    // Déterminer les hôtes applicatifs/médias à utiliser
+    const appHost = process.env.APP_PUBLIC_HOST 
+      || process.env.NEXT_PUBLIC_APP_HOST 
+      || process.env.APP_PUBLIC_URL 
+      || process.env.NEXT_PUBLIC_APP_URL 
+      || request.nextUrl.origin;
+    const mediaHost = process.env.MEDIA_HOST 
+      || process.env.NEXT_PUBLIC_MEDIA_HOST 
+      || process.env.MEDIA_BASE_URL 
+      || process.env.NEXT_PUBLIC_MEDIA_URL 
+      || appHost;
+    
     // Lancer le traitement asynchrone du format
     setTimeout(async () => {
       try {
@@ -102,7 +114,7 @@ export const POST = requestMiddleware(async (request: NextRequest, params) => {
         // Mettre à jour le statut
         await formatsCrud.update(newFormat.id, {
           processing_status: 'completed',
-          formatted_file_url: `https://wolo-media.zoer.ai/formatted/${newFormat.id}.${validatedData.supported_formats[0]}`,
+          formatted_file_url: `${mediaHost}/formatted/${newFormat.id}.${validatedData.supported_formats[0]}`,
           formatted_filename: `${validatedData.platform}_${validatedData.format_type}.${validatedData.supported_formats[0]}`
         });
         

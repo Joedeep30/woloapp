@@ -117,7 +117,7 @@ export function QRCodeGenerator({ potId, invitees, className = "" }: QRCodeGener
   const downloadQRCode = async (qrCode: QRCodeData) => {
     try {
       // Générer l'image QR code (simulation)
-      const qrText = `https://wolo-cagnotte.zoer.ai/qr/${qrCode.code}`;
+      const qrText = `${window.location.origin}/qr/${qrCode.code}`;
       
       // Dans une vraie implémentation, on utiliserait une librairie comme qrcode
       // Pour la démo, on simule le téléchargement

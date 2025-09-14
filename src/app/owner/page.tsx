@@ -511,7 +511,7 @@ function OwnerDashboardContent() {
         toast.success('WhatsApp ouvert avec le message d\'invitation !');
         break;
       case 'facebook':
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://wolo-cagnotte.zoer.ai/user/${user.id}`)}`, '_blank');
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${window.location.origin}/user/${user.id}`)}`, '_blank');
         toast.success('Sélecteur d\'amis Facebook ouvert !');
         break;
       case 'tiktok':

@@ -2,12 +2,13 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
 
 export function GoogleLoginButton() {
 
   const handleClick = () => {
-    const url = `${process.env.NEXT_PUBLIC_ZOER_HOST}/auth/google/login?fromUrl=${window.location.origin}/next_api/auth/google-login?callback_url=${window.location.origin}&appCode=${process.env.NEXT_PUBLIC_APP_CODE}`;
-    window.location.href = url;
+    // Trigger in-app Google OAuth via NextAuth. Callback returns to current origin.
+    signIn("google", { callbackUrl: window.location.origin });
   };
   
   return (
