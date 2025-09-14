@@ -200,14 +200,40 @@ Tech-wise, we adopt a **hybrid architecture**: **Web (Next.js)** for admin, SEO 
 ### **Microservices Architecture**
 1. **Identity**: authentication, sessions, roles, guardian links
 2. **Profiles**: profile data, DOB, preferences, identity verification
-3. **Referral**: codes, invitations, acceptances, points ledger
+3. **Referral**: codes, invitations, acceptances, points ledger, **daily limits & batch management**
 4. **Pots**: CRUD, states, J-30 scheduling
 5. **Donations**: Wave integration, webhooks, ledger, refunds
 6. **Packs**: catalog, pricing, sponsor promotions
 7. **QR/Redemption**: generation, validation, audit trail
 8. **Notifications**: email/WhatsApp/SMS templates, logs, retries
-9. **Analytics**: event ingestion, dashboards
-10. **Admin**: feature flags, revenue splits, operational tools
+9. **Analytics**: event ingestion, dashboards, **engagement tracking**
+10. **Admin**: feature flags, revenue splits, operational tools, **invitation limit controls**
+
+### **Daily Invitation Limits System 🎆**
+
+**Core Features:**
+- **50 invitations per sponsor per day** (configurable via admin)
+- **Batch selection**: "Select first 50 contacts" option
+- **Individual selection**: Cherry-pick specific contacts
+- **Mixed mode**: Combination of batch + individual selection
+- **Daily reset at midnight** (Senegal timezone)
+- **Visual limit counter**: "32/50 invites remaining today"
+- **Engagement gamification**: Consecutive day streaks, daily comeback rewards
+
+**Technical Implementation:**
+- `sponsor_daily_limits` table tracks daily quotas and usage
+- `sponsor_contact_batches` table manages batch selections
+- Smart queueing system for contact prioritization
+- Automated reset job at midnight
+- Real-time limit checking before invitation sends
+- Analytics dashboard for admin monitoring
+
+**Business Benefits:**
+- **Increased Daily Engagement**: Sponsors return multiple times per day
+- **Reduced Spam Complaints**: Prevents mass invitation abuse
+- **Strategic Contact Selection**: Forces sponsors to prioritize high-quality invites
+- **Improved Conversion Rates**: Quality over quantity approach
+- **Platform Stickiness**: Creates daily usage habits
 
 ---
 
